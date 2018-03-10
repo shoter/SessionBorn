@@ -1,18 +1,26 @@
 <template>
   <div id="app">
   <navbar></navbar>
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <div class="row">
+      <sidebar></sidebar>
+      <div class="col-sm-10">
+        <img src="./assets/logo.png">
+        <router-view></router-view>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
   import NavBar from './components/NavBar'
+  import SideBar from './components/Sidebar'
 
 export default {
     name: 'app',
     components: {
-      'navbar': NavBar
+      'navbar': NavBar,
+      'sidebar': SideBar
     }
 }
 </script>
