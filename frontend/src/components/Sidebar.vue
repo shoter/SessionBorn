@@ -29,13 +29,13 @@
         return {
           user: {
             name: 'Bruce Wayne',
-            photoLink: '/static/wayne.jpg',
+            photoLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Adam_West_as_Batman.jpg/800px-Adam_West_as_Batman.jpg',
             lvl: 10,
             exp: 236 },
           menu: [
             { link: '/', name: 'Dashboard', icon: 'home' },
             { link: '#', name: 'Awards', icon: 'star' },
-            { link: '#', name: 'Map', icon: 'map' },
+            { link: '/#/map', name: 'Map', icon: 'map' },
             { link: '#', name: 'Statistics', icon: 'area-chart' }
           ]
         }
@@ -54,8 +54,10 @@
     .user-profile {
       .user-photo {
         img {
-          max-width: 150px;
-          max-height: 150px;
+          object-fit: cover;
+          object-position: center;
+          width: 150px;
+          height: 150px;
           border: $main-border;
           border-radius: 50%;
         }
@@ -86,7 +88,7 @@
       :hover {
         background: $text-color;
         color: $menu-secondary;
-        transition: color,background-color 1s ease-in;
+        transition: color,background-color 0.2s ease-out;
       }
       }
     }

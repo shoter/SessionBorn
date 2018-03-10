@@ -29,7 +29,13 @@ export default {
     },
     data () {
       return {
-        authFlag: true
+        authFlag: false
+      }
+    },
+    mounted: function () {
+      let cookie = this.$cookie.get('skyrim_token')
+      if (cookie != null) {
+        this.authFlag = true
       }
     }
 }

@@ -29,6 +29,10 @@ export default {
     }
   },
   mounted: function () {
+    /* this.$http.interceptors.get(function (request) {
+      request.headers.set('X-CSRF-TOKEN', this.$cookie.get('skyrim_token'))
+      request.headers.set('Authorization', 'Bearer TOKEN')
+    }) */
     this.$http.get('http://localhost:8080/static/scenarios.json').then(response => {
       // get body data
       this.scenarios = response.body

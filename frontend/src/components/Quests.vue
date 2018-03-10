@@ -6,15 +6,23 @@
                  v-bind:title="quest.name"
                  v-bind:sub-title="quest.description">
           <div slot="header"
-              class="mb-0"><b>Points:</b> {{ quest.points }}</div>
+              class="mb-0 row">
+            <div class="col-6"><b>Points:</b> {{ quest.points }}</div>
+            <div class="col-6 text-right"><b>{{ quest.type }}</b></div>
+          </div>
           <div slot="footer">
             <small v-if="quest.completed" class="text-muted">Finished quest!</small>
             <small v-else class="due-date">{{ updateTime(quest.dueDate) }} days left</small>
           </div>
 
-          <router-link :to="'/map/'"
-                       class="card-link">
-            <b-button variant="secondary">Show on map</b-button></router-link>
+          <b-button-group>
+            <b-button v-if="quest.isQuiz" variant="info" size="sm" v-bind:disabled="quest.completed">Solve quiz</b-button>
+          <b-button v-else variant="success" size="sm" v-bind:disabled="quest.completed">Complete</b-button>
+            <b-button variant="secondary" size="sm"
+                      v-bind:href = "mapLink(quest.Latitude,quest.Longitude,quest.name)" class="card-link"
+                      v-bind:disabled="checkMapParams(quest.Latitude,quest.Longitude)">Show on map</b-button>
+            <b-button variant="danger" size="sm" v-bind:disabled="quest.completed">Resign</b-button>
+          </b-button-group>
         </b-card>
       </b-card-group>
       {{ error }}
@@ -35,6 +43,12 @@
         updateTime: function (date) {
           let dayConst = 86400 * 1000
           return Math.floor((Date.parse(date) - Date.now()) / dayConst)
+        },
+        checkMapParams: function (lan, lon) {
+          return lan == null || lon == null
+        },
+        mapLink: function (lan, lon, name) {
+          return '/#/map/' + lan + '/' + lon + '/' + name.replace(' ', '%20')
         }
       },
       mounted: function () {
@@ -55,7 +69,7 @@
     color: $text-color;
     border-right: $main-border;
     .due-date {
-      color: firebrick;
+      color: #e22727;
     }
   }
 

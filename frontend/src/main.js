@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueResource from 'vue-resource'
+import VueCookie from 'vue-cookie'
 import App from './App'
 import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,6 +11,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-awesome/icons'
 
 Vue.use(VueResource)
+Vue.use(VueCookie)
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
