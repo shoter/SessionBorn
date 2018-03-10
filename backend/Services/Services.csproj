@@ -48,11 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DTOs\QuizNewQuestion.cs" />
     <Compile Include="IQuestService.cs" />
+    <Compile Include="IQuizService.cs" />
     <Compile Include="IRewardService.cs" />
     <Compile Include="IScenarioService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuizService.cs" />
     <Compile Include="RewardService.cs" />
     <Compile Include="QuestService.cs" />
     <Compile Include="ScenarioServices.cs" />

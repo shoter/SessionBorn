@@ -16,6 +16,10 @@
         <AssociationConnector Association="SessionBornModel.FK_Quests_Scenarios" />
         <EntityTypeShape EntityType="SessionBornModel.Reward" Width="1.5" PointX="3" PointY="1.75" />
         <AssociationConnector Association="SessionBornModel.FK_Rewards_AspNetUsers" />
+        <EntityTypeShape EntityType="SessionBornModel.Quize" Width="1.5" PointX="10.125" PointY="2" />
+        <AssociationConnector Association="SessionBornModel.FK_Quizes_Quests" />
+        <EntityTypeShape EntityType="SessionBornModel.QuizQuestion" Width="1.5" PointX="12.375" PointY="1.5" />
+        <AssociationConnector Association="SessionBornModel.FK_QuizQuestions_Quizes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -60,11 +60,21 @@
     <Compile Include="QuestType.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Quize.cs">
+      <DependentUpon>SessionBornEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuizQuestion.cs">
+      <DependentUpon>SessionBornEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuizQuestionRepository.cs" />
+    <Compile Include="Repositories\IQuizRepository.cs" />
     <Compile Include="Repositories\IRewardRepository.cs" />
     <Compile Include="Repositories\IQuestRepository.cs" />
     <Compile Include="Repositories\IScenarioRepository.cs" />
     <Compile Include="Repositories\IUserInfoRepository.cs" />
     <Compile Include="Repositories\QuestRepository.cs" />
+    <Compile Include="Repositories\QuizQuestionRepository.cs" />
+    <Compile Include="Repositories\QuizRepository.cs" />
     <Compile Include="Repositories\ScenarioRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\RewardRepository.cs" />

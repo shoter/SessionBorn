@@ -434,6 +434,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DamianTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RewardController.cs" />
     <Compile Include="Controllers\ScenarioController.cs" />
     <Compile Include="Controllers\SidebarController.cs" />
@@ -445,6 +446,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Quizes\CreateQuizViewModel.cs" />
     <Compile Include="Models\Rewards\BasicRewardViewModel.cs" />
     <Compile Include="Models\Rewards\RewardViewModel.cs" />
     <Compile Include="Models\ScenarioModels.cs" />

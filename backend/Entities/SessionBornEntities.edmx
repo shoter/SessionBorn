@@ -45,6 +45,26 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="75" Nullable="false" />
         </EntityType>
+        <EntityType Name="Quizes">
+          <Key>
+            <PropertyRef Name="QuestID" />
+          </Key>
+          <Property Name="QuestID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuizQuestions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuizID" Type="int" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AnswerB" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AnswerC" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AnswerD" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Rewards">
           <Key>
             <PropertyRef Name="ID" />
@@ -103,6 +123,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Quizes_Quests">
+          <End Role="Quests" Type="Self.Quests" Multiplicity="1" />
+          <End Role="Quizes" Type="Self.Quizes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Quests">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quizes">
+              <PropertyRef Name="QuestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizQuestions_Quizes">
+          <End Role="Quizes" Type="Self.Quizes" Multiplicity="1" />
+          <End Role="QuizQuestions" Type="Self.QuizQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quizes">
+              <PropertyRef Name="QuestID" />
+            </Principal>
+            <Dependent Role="QuizQuestions">
+              <PropertyRef Name="QuizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rewards_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Rewards" Type="Self.Rewards" Multiplicity="*" />
@@ -143,6 +187,8 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quests" EntityType="Self.Quests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestTypes" EntityType="Self.QuestTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quizes" EntityType="Self.Quizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuizQuestions" EntityType="Self.QuizQuestions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rewards" EntityType="Self.Rewards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Scenarios" EntityType="Self.Scenarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
@@ -154,6 +200,14 @@
           <AssociationSet Name="FK_Quests_Scenarios" Association="Self.FK_Quests_Scenarios">
             <End Role="Scenarios" EntitySet="Scenarios" />
             <End Role="Quests" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quizes_Quests" Association="Self.FK_Quizes_Quests">
+            <End Role="Quests" EntitySet="Quests" />
+            <End Role="Quizes" EntitySet="Quizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizQuestions_Quizes" Association="Self.FK_QuizQuestions_Quizes">
+            <End Role="Quizes" EntitySet="Quizes" />
+            <End Role="QuizQuestions" EntitySet="QuizQuestions" />
           </AssociationSet>
           <AssociationSet Name="FK_Rewards_AspNetUsers" Association="Self.FK_Rewards_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -199,6 +253,16 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Reward" EntitySet="Rewards" />
           </AssociationSet>
+          <EntitySet Name="Quizes" EntityType="SessionBornModel.Quize" />
+          <AssociationSet Name="FK_Quizes_Quests" Association="SessionBornModel.FK_Quizes_Quests">
+            <End Role="Quest" EntitySet="Quests" />
+            <End Role="Quize" EntitySet="Quizes" />
+          </AssociationSet>
+          <EntitySet Name="QuizQuestions" EntityType="SessionBornModel.QuizQuestion" />
+          <AssociationSet Name="FK_QuizQuestions_Quizes" Association="SessionBornModel.FK_QuizQuestions_Quizes">
+            <End Role="Quize" EntitySet="Quizes" />
+            <End Role="QuizQuestion" EntitySet="QuizQuestions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Quest">
           <Key>
@@ -217,6 +281,7 @@
           <Property Name="Points" Type="Int32" Nullable="false" />
           <NavigationProperty Name="QuestType" Relationship="SessionBornModel.FK_Quests_QuestTypes" FromRole="Quest" ToRole="QuestType" />
           <NavigationProperty Name="Scenario" Relationship="SessionBornModel.FK_Quests_Scenarios" FromRole="Quest" ToRole="Scenario" />
+          <NavigationProperty Name="Quize" Relationship="SessionBornModel.FK_Quizes_Quests" FromRole="Quest" ToRole="Quize" />
         </EntityType>
         <EntityType Name="QuestType">
           <Key>
@@ -337,6 +402,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Quize">
+          <Key>
+            <PropertyRef Name="QuestID" />
+          </Key>
+          <Property Name="QuestID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Quest" Relationship="SessionBornModel.FK_Quizes_Quests" FromRole="Quize" ToRole="Quest" />
+          <NavigationProperty Name="QuizQuestions" Relationship="SessionBornModel.FK_QuizQuestions_Quizes" FromRole="Quize" ToRole="QuizQuestion" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Quizes_Quests">
+          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="1" />
+          <End Type="SessionBornModel.Quize" Role="Quize" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Quest">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quize">
+              <PropertyRef Name="QuestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="QuizQuestion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuizID" Type="Int32" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerB" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerC" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerD" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quize" Relationship="SessionBornModel.FK_QuizQuestions_Quizes" FromRole="QuizQuestion" ToRole="Quize" />
+        </EntityType>
+        <Association Name="FK_QuizQuestions_Quizes">
+          <End Type="SessionBornModel.Quize" Role="Quize" Multiplicity="1" />
+          <End Type="SessionBornModel.QuizQuestion" Role="QuizQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quize">
+              <PropertyRef Name="QuestID" />
+            </Principal>
+            <Dependent Role="QuizQuestion">
+              <PropertyRef Name="QuizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -412,6 +524,28 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizes">
+            <EntityTypeMapping TypeName="SessionBornModel.Quize">
+              <MappingFragment StoreEntitySet="Quizes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="QuestID" ColumnName="QuestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizQuestions">
+            <EntityTypeMapping TypeName="SessionBornModel.QuizQuestion">
+              <MappingFragment StoreEntitySet="QuizQuestions">
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="AnswerD" ColumnName="AnswerD" />
+                <ScalarProperty Name="AnswerC" ColumnName="AnswerC" />
+                <ScalarProperty Name="AnswerB" ColumnName="AnswerB" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="QuizID" ColumnName="QuizID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

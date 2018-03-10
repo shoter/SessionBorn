@@ -50,7 +50,10 @@ namespace Rest
             kernel.Bind<IScenarioService>().To<ScenarioServices>().InRequestScope();
             kernel.Bind<IQuestRepository>().To<QuestRepository>().InRequestScope();
             kernel.Bind<IQuestService>().To<QuestService>().InRequestScope();
-
+            kernel.Bind<IQuizRepository>().To<QuizRepository>().InRequestScope();
+            kernel.Bind<IQuizQuestionRepository>().To<QuizQuestionRepository>().InRequestScope();
+            kernel.Bind<IRewardRepository>().To<RewardRepository>().InRequestScope();
+            kernel.Bind<IRewardService>().To<RewardService>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             kernel.Bind<ITransactionScopeProvider>().To<StandardTransactionScopeProvider>().InRequestScope();
         }

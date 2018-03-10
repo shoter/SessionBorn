@@ -31,5 +31,7 @@ namespace Entities
         public virtual DbSet<Scenario> Scenarios { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
         public virtual DbSet<Reward> Rewards { get; set; }
+        public virtual DbSet<Quize> Quizes { get; set; }
+        public virtual DbSet<QuizQuestion> QuizQuestions { get; set; }
     }
 }

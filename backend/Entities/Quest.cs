@@ -28,5 +28,6 @@ namespace Entities
     
         public virtual QuestType QuestType { get; set; }
         public virtual Scenario Scenario { get; set; }
+        public virtual Quize Quize { get; set; }
     }
 }
