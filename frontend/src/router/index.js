@@ -19,8 +19,13 @@ export default new Router({
       component: Quests
     },
     {
-      path: '/map',
+      path: '/map/:lon/:lat/:title',
       name: 'Map',
+      component: Map
+    },
+    {
+      path: '/map',
+      name: 'Map_all',
       component: Map
     }
   ]
