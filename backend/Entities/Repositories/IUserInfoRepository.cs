@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Entities.Repositories
 {
-    public interface ITokenRepository : IRepository<Token>
+    public interface IUserInfoRepository : IRepository<UserInfo>
     {
-        List<Token> GetDueTokens();
-        List<Token> GetOldTokens(int userID);
-        Token GetToken(string tokenValue);
+
     }
 }

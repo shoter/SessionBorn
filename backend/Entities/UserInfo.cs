@@ -12,14 +12,11 @@ namespace Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Token
+    public partial class UserInfo
     {
-        public long ID { get; set; }
-        public int UserID { get; set; }
-        public string Value { get; set; }
-        public System.DateTime DueDate { get; set; }
-        public bool RememberMe { get; set; }
+        public string UserID { get; set; }
+        public int Experience { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
