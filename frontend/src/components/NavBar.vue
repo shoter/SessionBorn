@@ -13,7 +13,16 @@
         <b-nav-text>
           <icon name="star-o"></icon> Points: {{ scores }}
         </b-nav-text>
+
       </b-navbar-nav>
+
+      <b-navbar-nav class="ml-auto">
+        <b-nav-text>
+          <icon name="clock-o"></icon> Time:
+          {{ time_string }}
+        </b-nav-text>
+      </b-navbar-nav>
+
       <b-navbar-nav class="ml-auto">
 
         <b-nav-item href="#"><icon name="sign-out"></icon> Logout</b-nav-item>
@@ -29,7 +38,23 @@
       name: 'nav-bar',
       data () {
         return {
-          scores: '123232'
+          scores: '123232',
+          now: new Date(),
+          timer: ''
+        }
+      },
+      created: function () {
+        this.updateTime()
+        this.timer = setInterval(this.updateTime, 100)
+      },
+      methods: {
+        updateTime: function () {
+          this.now = new Date()
+        }
+      },
+      computed: {
+        time_string: function () {
+          return this.now.toTimeString().split(' ')[0]
         }
       }
     }
