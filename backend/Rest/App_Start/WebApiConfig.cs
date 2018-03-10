@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Rest
 {
@@ -9,7 +10,8 @@ namespace Rest
     {
         public static void Register(HttpConfiguration config)
         {
-            config.EnableCors();  // Corse support for Web api
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             // Web API configuration and services
 

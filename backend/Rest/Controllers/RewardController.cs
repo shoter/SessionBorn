@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Rest.Controllers
 {
@@ -26,6 +27,7 @@ namespace Rest.Controllers
         }
 
         [Authorize]
+        [Route("Api/Reward/Create")]
         public void CreateReward(RewardViewModel vm)
         {
             var user = GetCurrentUser();
@@ -62,6 +64,7 @@ namespace Rest.Controllers
 
         [HttpPost]
         [Authorize]
+        [Route("Api/Reward/BuyReward")]
         public void BuyReward(int rewardID)
         {
             using (var trs = transactionScopeProvider.CreateTransactionScope())
@@ -80,6 +83,7 @@ namespace Rest.Controllers
 
         [HttpPost]
         [Authorize]
+        [Route("Api/Reward/CanBuy")]
         public MethodResult CanBuy(int rewardID)
         {
             var user = GetCurrentUser();

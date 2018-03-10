@@ -10,7 +10,6 @@ using System.Web.Http.Cors;
 
 namespace Rest.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SidebarController : BaseController
     {
         private readonly IUserRepository userRepository;

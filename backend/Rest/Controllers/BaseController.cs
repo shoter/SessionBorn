@@ -19,13 +19,14 @@ namespace Rest.Controllers
             userRepository = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IUserRepository)) as IUserRepository;
         }
 
-        public AspNetUser GetCurrentUser()
+        [ApiExplorerSettings(IgnoreApi = true)]
+        protected AspNetUser GetCurrentUser()
         {
             return userRepository.GetUser(User.Identity.Name);
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public void ThrowHttpException(HttpStatusCode code, string message)
+        protected void ThrowHttpException(HttpStatusCode code, string message)
         {
             var response = new HttpResponseMessage(code)
             {
