@@ -1,0 +1,33 @@
+$main-bg-color: #919890;
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+  background-color: $main-bg-color;
+}
+
+.app-wrapper {
+  width: 1024px;
+  height: 768px;
+  background: $main-bg-color;
+}
+.header {
+  height: 8%;
+  background: #323232;
+  width: 100%;
+  border-bottom: 2px solid #919890;
+  .icon {
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 25%;
+    float: left;
+    height: 40%;
+    top: 30%;
+    position: relative;
+    left: 2%;
+  }
+}
