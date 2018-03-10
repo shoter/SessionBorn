@@ -27,6 +27,5 @@ namespace Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Quest> Quests { get; set; }
-        public virtual User User { get; set; }
     }
 }

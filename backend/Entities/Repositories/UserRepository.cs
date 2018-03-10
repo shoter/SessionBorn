@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Entities.Repositories
 {
-    public class UserRepository : RepositoryBase<User, SessionBornEntities>, IUserRepository
+    public class UserRepository : RepositoryBase<AspNetUser, SessionBornEntities>, IUserRepository
     {
         public UserRepository(SessionBornEntities context) : base(context)
         {
         }
 
-        public User GetUser(string username)
+        public AspNetUser GetUser(string username)
         {
-            return Single(u => u.Username == username);
+            return Single(u => u.UserName == username);
         }
 
         public bool Exists(string username)
         {
-            return Any(u => u.Username == username);
+            return Any(u => u.UserName == username);
         }
     }
 }
