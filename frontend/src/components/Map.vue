@@ -37,8 +37,23 @@
     name: 'map_comp',
     data () {
       return {
-        center: {lat: 10.0, lng: 10.0},
-        markers: [{
+        center: {lat: 0.0, lng: 0.0},
+        markers: []
+      }
+    },
+    mounted: function () {
+      if (this.$route.params.lon != null && this.$route.params.lat != null) {
+        alert('B1')
+        let pos = {lat: Number(this.$route.params.lat), lng: Number(this.$route.params.lon)}
+        this.markers = [
+          {
+            position: pos,
+            title: this.$route.params.title,
+            messageVisible: true
+          }]
+        this.center = pos
+      } else {
+        this.markers = [{
           position: {lat: 10.0, lng: 10.0},
           title: 'Kolos',
           desc: 'dsadsadsadsad sdsad saesfd sdfs',
@@ -65,7 +80,5 @@
   .maptitle{
     font-size: large;
   }
-  #Map {
-    background-color: red;
-  }
+
 </style>
