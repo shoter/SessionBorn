@@ -1,5 +1,6 @@
 <template>
   <div id="Dashboard">
+    <h2 class="header">Scenarios</h2>
     <b-card-group columns>
       <b-card  v-for="scenario in scenarios" :key="scenario.id" class="tile"
               v-bind:title="scenario.scenarioName"
@@ -7,8 +8,8 @@
         <div class="progress-bar">
           <div class="progress-bar-fill" :style="{ 'width': scenario.percentDone + '%'  }"></div>
         </div>
-        <b-link href="#"
-                class="card-link">See quests</b-link>
+        <router-link :to="'scenario/' + scenario.id"
+          class="card-link">See quests</router-link>
         <div v-if="scenario.completed" slot="footer">
           <small class="text-muted">Finished scenario!</small>
         </div>
