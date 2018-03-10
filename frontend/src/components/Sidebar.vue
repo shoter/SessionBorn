@@ -29,7 +29,7 @@
         return {
           user: {
             name: 'Bruce Wayne',
-            photoLink: '/static/wayne.jpg',
+            photoLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Adam_West_as_Batman.jpg/800px-Adam_West_as_Batman.jpg',
             lvl: 10,
             exp: 236 },
           menu: [
@@ -54,8 +54,10 @@
     .user-profile {
       .user-photo {
         img {
-          max-width: 150px;
-          max-height: 150px;
+          object-fit: cover;
+          object-position: center;
+          width: 150px;
+          height: 150px;
           border: $main-border;
           border-radius: 50%;
         }
