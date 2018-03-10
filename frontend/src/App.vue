@@ -3,7 +3,7 @@
   <navbar></navbar>
     <div class="row">
       <sidebar></sidebar>
-      <div class="col-sm-10">
+      <div class="col-sm-10 main">
         <img src="./assets/logo.png">
         <router-view></router-view>
       </div>

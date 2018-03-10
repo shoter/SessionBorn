@@ -9,9 +9,9 @@
       </div>
     </div>
     <div class="menu">
-      <h6 class="menu-header">Menu</h6>
-      <b-nav vertical v-for="item in menu">
-        <b-nav-item active><a v-bind:href="item.link" :key="item.name">{{ item.name }}</a></b-nav-item>
+      <h6 class="menu-header text-uppercase">Menu</h6>
+      <b-nav vertical v-for="item in menu"  :key="item.name">
+        <b-nav-item active class="menu-item"><a v-bind:href="item.link">{{ item.name }}</a></b-nav-item>
       </b-nav>
     </div>
   </div>
@@ -40,9 +40,11 @@
 
 <style lang="scss" scoped>
   @import "./../scss/variables.scss";
+  $menu-secondary: darkgray;
 
   .sidebar {
     background-color: $main-sidebar-color;
+    padding-top: 50px;
     overflow-x: hidden;
     text-align: center;
     .user-profile {
@@ -50,9 +52,20 @@
         img {
           max-width: 150px;
           max-height: 150px;
-          border: 3px $border-color solid;
+          border: $main-border;
           border-radius: 50%;
         }
+      }
+    }
+  .menu {
+    .menu-item {
+      background: $menu-secondary;
+      border-right: $main-border;
+      :hover {
+        background: $text-color;
+        color: $menu-secondary;
+        transition: color,background-color 1s ease-in;
+      }
       }
     }
   }

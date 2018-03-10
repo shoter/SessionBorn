@@ -2,3 +2,10 @@ $main-bg-color: #ffffff;
 $main-sidebar-color: #e0e0e0;
 $text-color: #2f2f2f;
 $border-color: #2f2f2f;
+$main-border: 3px $border-color solid;
+
+
+a, a:hover, a:focus {
+  color: $text-color;
+  text-decoration: none;
+}
