@@ -23,14 +23,13 @@
 export default {
     name: 'app',
     components: {
-      LoginForm,
       'navbar': NavBar,
       'sidebar': SideBar,
       'login-form': LoginForm
     },
     data () {
       return {
-        authFlag: false
+        authFlag: true
       }
     }
 }
