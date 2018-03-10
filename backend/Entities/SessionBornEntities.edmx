@@ -4,7 +4,39 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SessionBornModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SessionBornModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Quests">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="125" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="QuestTypeID" Type="int" Nullable="false" />
+          <Property Name="ScenarioID" Type="int" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" Nullable="false" />
+          <Property Name="DoneDate" Type="datetime" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Points" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Scenarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Test">
           <Key>
             <PropertyRef Name="ID" />
@@ -12,11 +44,96 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tokens">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" Nullable="false" />
+          <Property Name="RememberMe" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="513" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Quests_QuestTypes">
+          <End Role="QuestTypes" Type="Self.QuestTypes" Multiplicity="1" />
+          <End Role="Quests" Type="Self.Quests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quests">
+              <PropertyRef Name="QuestTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quests_Scenarios">
+          <End Role="Scenarios" Type="Self.Scenarios" Multiplicity="1" />
+          <End Role="Quests" Type="Self.Quests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scenarios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quests">
+              <PropertyRef Name="ScenarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Scenarios_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Scenarios" Type="Self.Scenarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Scenarios">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tokens_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tokens" Type="Self.Tokens" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tokens">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SessionBornModelStoreContainer">
+          <EntitySet Name="Quests" EntityType="Self.Quests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestTypes" EntityType="Self.QuestTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scenarios" EntityType="Self.Scenarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tokens" EntityType="Self.Tokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Quests_QuestTypes" Association="Self.FK_Quests_QuestTypes">
+            <End Role="QuestTypes" EntitySet="QuestTypes" />
+            <End Role="Quests" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quests_Scenarios" Association="Self.FK_Quests_Scenarios">
+            <End Role="Scenarios" EntitySet="Scenarios" />
+            <End Role="Quests" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Scenarios_Users" Association="Self.FK_Scenarios_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Scenarios" EntitySet="Scenarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tokens_Users" Association="Self.FK_Tokens_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tokens" EntitySet="Tokens" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SessionBornModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -29,7 +146,133 @@
         </EntityType>
         <EntityContainer Name="SessionBornEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Tests" EntityType="Self.Test" />
+          <EntitySet Name="Quests" EntityType="SessionBornModel.Quest" />
+          <EntitySet Name="QuestTypes" EntityType="SessionBornModel.QuestType" />
+          <EntitySet Name="Scenarios" EntityType="SessionBornModel.Scenario" />
+          <EntitySet Name="Users" EntityType="SessionBornModel.User" />
+          <AssociationSet Name="FK_Quests_QuestTypes" Association="SessionBornModel.FK_Quests_QuestTypes">
+            <End Role="QuestType" EntitySet="QuestTypes" />
+            <End Role="Quest" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quests_Scenarios" Association="SessionBornModel.FK_Quests_Scenarios">
+            <End Role="Scenario" EntitySet="Scenarios" />
+            <End Role="Quest" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Scenarios_Users" Association="SessionBornModel.FK_Scenarios_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Scenario" EntitySet="Scenarios" />
+          </AssociationSet>
+          <EntitySet Name="Tokens" EntityType="SessionBornModel.Token" />
+          <AssociationSet Name="FK_Tokens_Users" Association="SessionBornModel.FK_Tokens_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Token" EntitySet="Tokens" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Quest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="QuestTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ScenarioID" Type="Int32" Nullable="false" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DoneDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestType" Relationship="SessionBornModel.FK_Quests_QuestTypes" FromRole="Quest" ToRole="QuestType" />
+          <NavigationProperty Name="Scenario" Relationship="SessionBornModel.FK_Quests_Scenarios" FromRole="Quest" ToRole="Scenario" />
+        </EntityType>
+        <EntityType Name="QuestType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quests" Relationship="SessionBornModel.FK_Quests_QuestTypes" FromRole="QuestType" ToRole="Quest" />
+        </EntityType>
+        <EntityType Name="Scenario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Quests" Relationship="SessionBornModel.FK_Quests_Scenarios" FromRole="Scenario" ToRole="Quest" />
+          <NavigationProperty Name="User" Relationship="SessionBornModel.FK_Scenarios_Users" FromRole="Scenario" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="513" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Scenarios" Relationship="SessionBornModel.FK_Scenarios_Users" FromRole="User" ToRole="Scenario" />
+          <NavigationProperty Name="Token" Relationship="SessionBornModel.FK_Tokens_Users" FromRole="User" ToRole="Token" />
+        </EntityType>
+        <Association Name="FK_Quests_QuestTypes">
+          <End Type="SessionBornModel.QuestType" Role="QuestType" Multiplicity="1" />
+          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quest">
+              <PropertyRef Name="QuestTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quests_Scenarios">
+          <End Type="SessionBornModel.Scenario" Role="Scenario" Multiplicity="1" />
+          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scenario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quest">
+              <PropertyRef Name="ScenarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Scenarios_Users">
+          <End Type="SessionBornModel.User" Role="User" Multiplicity="1" />
+          <End Type="SessionBornModel.Scenario" Role="Scenario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Scenario">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="SessionBornModel.FK_Tokens_Users" FromRole="Token" ToRole="User" />
+          <Property Name="RememberMe" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tokens_Users">
+          <End Type="SessionBornModel.User" Role="User" Multiplicity="1" />
+          <End Type="SessionBornModel.Token" Role="Token" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -41,6 +284,60 @@
               <MappingFragment StoreEntitySet="Test">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quests">
+            <EntityTypeMapping TypeName="SessionBornModel.Quest">
+              <MappingFragment StoreEntitySet="Quests">
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="ScenarioID" ColumnName="ScenarioID" />
+                <ScalarProperty Name="QuestTypeID" ColumnName="QuestTypeID" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestTypes">
+            <EntityTypeMapping TypeName="SessionBornModel.QuestType">
+              <MappingFragment StoreEntitySet="QuestTypes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scenarios">
+            <EntityTypeMapping TypeName="SessionBornModel.Scenario">
+              <MappingFragment StoreEntitySet="Scenarios">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SessionBornModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="SessionBornModel.Token">
+              <MappingFragment StoreEntitySet="Tokens">
+                <ScalarProperty Name="RememberMe" ColumnName="RememberMe" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

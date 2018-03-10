@@ -26,5 +26,10 @@ namespace Entities
         }
     
         public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<Quest> Quests { get; set; }
+        public virtual DbSet<QuestType> QuestTypes { get; set; }
+        public virtual DbSet<Scenario> Scenarios { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Token> Tokens { get; set; }
     }
 }
