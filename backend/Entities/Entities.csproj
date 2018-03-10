@@ -61,7 +61,11 @@
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IRewardRepository.cs" />
+    <Compile Include="Repositories\IQuestRepository.cs" />
+    <Compile Include="Repositories\IScenarioRepository.cs" />
     <Compile Include="Repositories\IUserInfoRepository.cs" />
+    <Compile Include="Repositories\QuestRepository.cs" />
+    <Compile Include="Repositories\ScenarioRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\RewardRepository.cs" />
     <Compile Include="Repositories\UserInfoRepository.cs" />

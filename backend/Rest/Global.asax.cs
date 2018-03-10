@@ -46,6 +46,11 @@ namespace Rest
             kernel.Bind<SessionBornEntities>().ToSelf().InRequestScope();
             kernel.Bind<IUserInfoRepository>().To<UserInfoRepository>().InRequestScope();
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
+            kernel.Bind<IScenarioRepository>().To<ScenarioRepository>().InRequestScope();
+            kernel.Bind<IScenarioService>().To<ScenarioServices>().InRequestScope();
+            kernel.Bind<IQuestRepository>().To<QuestRepository>().InRequestScope();
+            kernel.Bind<IQuestService>().To<QuestService>().InRequestScope();
+
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             kernel.Bind<ITransactionScopeProvider>().To<StandardTransactionScopeProvider>().InRequestScope();
         }

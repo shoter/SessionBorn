@@ -18,7 +18,7 @@ namespace Entities.Repositories
             return SingleOrDefault(x => x.ID == scenarioID);
         }
 
-        public List<Scenario> GetUsersScenarios(int userID)
+        public List<Scenario> GetUsersScenarios(string userID)
         {
             return Where(x => x.UserID == userID).ToList();
         }

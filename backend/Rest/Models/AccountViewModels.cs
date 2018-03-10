@@ -37,6 +37,8 @@ namespace Rest.Models
         public string LoginProvider { get; set; }
     }
 
+
+
     public class UserLoginInfoViewModel
     {
         public string LoginProvider { get; set; }

@@ -7,7 +7,7 @@ using Common.EntityFramework;
 
 namespace Entities.Repositories
 {
-    class QuestRepository : RepositoryBase<Quest, SessionBornEntities>, IQuestRepository
+    public class QuestRepository : RepositoryBase<Quest, SessionBornEntities>, IQuestRepository
     {
         public QuestRepository(SessionBornEntities context) : base(context)
         {
