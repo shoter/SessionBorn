@@ -7,9 +7,9 @@ using Entities;
 
 namespace Services
 {
-    interface IScenarioService
+    public interface IScenarioService
     {
-        Scenario CreateScenario(string name, string desc, int userID);
+        Scenario CreateScenario(string name, string desc, string userID);
 
     }
 }

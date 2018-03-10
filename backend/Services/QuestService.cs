@@ -8,7 +8,7 @@ using Entities;
 
 namespace Services
 {
-    class QuestService : IQuestService
+    public class QuestService : IQuestService
     {
         private readonly IQuestRepository questRepository;
 

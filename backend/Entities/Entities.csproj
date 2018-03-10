@@ -60,7 +60,11 @@
     <Compile Include="QuestType.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IQuestRepository.cs" />
+    <Compile Include="Repositories\IScenarioRepository.cs" />
     <Compile Include="Repositories\IUserInfoRepository.cs" />
+    <Compile Include="Repositories\QuestRepository.cs" />
+    <Compile Include="Repositories\ScenarioRepository.cs" />
     <Compile Include="Repositories\UserInfoRepository.cs" />
     <Compile Include="Scenario.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>

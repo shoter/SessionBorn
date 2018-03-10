@@ -9,7 +9,7 @@ namespace Entities.Repositories
 {
     public interface IScenarioRepository : IRepository<Scenario>
     {
-        List<Scenario> GetUsersScenarios(int userID);
+        List<Scenario> GetUsersScenarios(string userID);
         Scenario GetScenario(int scenarioID);
 
         

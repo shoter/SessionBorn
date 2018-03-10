@@ -8,14 +8,14 @@ using Entities.Repositories;
 
 namespace Services
 {
-    class ScenarioServices : IScenarioService
+    public class ScenarioServices : IScenarioService
     {
         private readonly IScenarioRepository scenarioRepository;
         public ScenarioServices(IScenarioRepository scenarioRepository)
         {
             this.scenarioRepository = scenarioRepository;
         }
-        public Scenario CreateScenario(string name, string desc, int userID)
+        public Scenario CreateScenario(string name, string desc, string userID)
         {
             var scenario = new Scenario
             {
@@ -37,7 +37,7 @@ namespace Services
             scenarioRepository.SaveChanges();
         }
 
-        public void EditScenario(int scenarioID, string name, string desc, int userID)
+        public void EditScenario(int scenarioID, string name, string desc, string userID)
         {
             Scenario scenarioToEdit = scenarioRepository.FirstOrDefault(x => x.ID == scenarioID);
 
@@ -62,6 +62,20 @@ namespace Services
                 }
             }
             return (pointsGained / points)*100;
+        }
+
+        public bool isCompleted(int scenarioID)
+        {
+            List<Quest> quests = scenarioRepository.FirstOrDefault(x => x.ID == scenarioID).Quests.ToList();
+
+            foreach (Quest q in quests)
+            {
+                if (!q.Completed)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

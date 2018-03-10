@@ -15,10 +15,21 @@ namespace Services
     {
         private readonly IEncoder passwordHasher = new SHA256();
         private readonly IUserInfoRepository userRepository;
+        private readonly IQuestRepository questRepository;
         public UserService(IUserInfoRepository userRepository)
         {
             this.userRepository = userRepository;
         }
 
+        public void OnCompletingQuest(int questID, string userID)
+        {
+            UserInfo currentUser = userRepository.FirstOrDefault(x => x.UserID == userID);
+            Quest quest = questRepository.FirstOrDefault(x => x.ID == questID);
+
+            if (currentUser != null && quest != null)
+            {
+                currentUser.Experience = currentUser.Experience + quest.Points;
+            }
+        }
     }
 }
