@@ -16,9 +16,11 @@
           </div>
 
           <b-button-group>
-          <b-button variant="success" size="sm" v-bind:disabled="quest.completed">Complete</b-button>
-            <b-button v-if="quest.isQuiz" variant="info" size="sm">Quiz details</b-button>
-            <b-button variant="secondary" size="sm" href = "/map/" class="card-link">Show on map</b-button>
+            <b-button v-if="quest.isQuiz" variant="info" size="sm" v-bind:disabled="quest.completed">Solve quiz</b-button>
+          <b-button v-else variant="success" size="sm" v-bind:disabled="quest.completed">Complete</b-button>
+            <b-button variant="secondary" size="sm"
+                      v-bind:href = "mapLink(quest.Latitude,quest.Longitude,quest.name)" class="card-link"
+                      v-bind:disabled="checkMapParams(quest.Latitude,quest.Longitude)">Show on map</b-button>
             <b-button variant="danger" size="sm" v-bind:disabled="quest.completed">Resign</b-button>
           </b-button-group>
         </b-card>
@@ -41,6 +43,12 @@
         updateTime: function (date) {
           let dayConst = 86400 * 1000
           return Math.floor((Date.parse(date) - Date.now()) / dayConst)
+        },
+        checkMapParams: function (lan, lon) {
+          return lan == null || lon == null
+        },
+        mapLink: function (lan, lon, name) {
+          return '/#/map/' + lan + '/' + lon + '/' + name.replace(' ', '%20')
         }
       },
       mounted: function () {

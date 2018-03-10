@@ -8,8 +8,8 @@
       "isQuiz": true,
       "dueDate": "2018-11-05T08:15:30-05:00",
       "doneDate": "2018-11-05T08:15:30-05:00",
-      "Latitude": null,
-      "Longitude": null,
+      "Latitude": 30,
+      "Longitude": 40,
       "description": "",
       "points": 10000
     },

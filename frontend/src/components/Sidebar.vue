@@ -35,7 +35,7 @@
           menu: [
             { link: '/', name: 'Dashboard', icon: 'home' },
             { link: '#', name: 'Awards', icon: 'star' },
-            { link: '#', name: 'Map', icon: 'map' },
+            { link: '/#/map', name: 'Map', icon: 'map' },
             { link: '#', name: 'Statistics', icon: 'area-chart' }
           ]
         }
@@ -88,7 +88,7 @@
       :hover {
         background: $text-color;
         color: $menu-secondary;
-        transition: color,background-color 1s ease-in;
+        transition: color,background-color 0.2s ease-out;
       }
       }
     }

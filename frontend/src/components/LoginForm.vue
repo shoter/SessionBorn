@@ -2,14 +2,15 @@
   <div class="container" id="login-form">
     <h1 class="apkName">SessionBorn</h1>
     <div class="holder">
-    <form class="form-signin">
+    <div class="form-signin">
       <h2 class="form-signin-heading">Please sign in</h2>
       <label for="inputLogin" class="sr-only">Login</label>
       <input id="inputLogin" class="form-control" placeholder="Login"  v-model="credentials.login" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password"   v-model="credentials.password" required>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="credentials.password" required>
+      {{credentials.login}}
       <button class="btn btn-lg btn-primary btn-block" type="submit" @click="submit()">Sign in</button>
-    </form>
+    </div>
     </div>
 
   </div>
@@ -28,11 +29,22 @@
     },
     methods: {
       submit () {
-        var credentials = {
-          login: this.credentials.login,
+        let loginData = {
+          grant_type: 'password',
+          username: this.credentials.login,
           password: this.credentials.password
         }
-        alert('Username' + credentials.login)
+        alert(loginData.username)
+        this.$http.post('http://arrowtotherest.azurewebsites.net/Token', loginData, {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, emulateJSON: true})
+          .then(response => {
+            this.$cookie.set(
+              'skyrim_token',
+              response.body.access_token,
+              response.body.expires_in
+            )
+          }, response => {
+            console.log(response)
+          })
         // We need to pass the component's this context
         // to properly make use of http in the auth service
         // auth.login(this, credentials, 'secretquote')
