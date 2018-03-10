@@ -1,5 +1,4 @@
 ﻿using Entities.Repositories;
-using ProjectSpecific.Users;
 using Rest.Models.Sidebars;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using ProjectSpecific.Users;
 
 namespace Rest.Controllers
 {

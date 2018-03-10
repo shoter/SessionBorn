@@ -15,6 +15,7 @@ namespace Rest.Models
         public DateTime doneDate { get; set; }
         public Nullable<decimal> Latitude { get; set; }
         public Nullable<decimal> Longitude { get; set; }
+        public Boolean isQuiz { get; set; }
         public Boolean completed { get; set; }
         public string description { get; set; }
         public int points { get; set; }
@@ -28,10 +29,8 @@ namespace Rest.Models
         public int scenarioId { get; set; }
         public int type { get; set; }
         public DateTime dueDate { get; set; }
-        public DateTime doneDate { get; set; }
         public Nullable<decimal> Latitude { get; set; }
         public Nullable<decimal> Longitude { get; set; }
-        public Boolean completed { get; set; }
         public string description { get; set; }
         public int points { get; set; }
 
