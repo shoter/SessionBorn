@@ -4,8 +4,11 @@
       <h5 class="user-name text-uppercase">{{ user.name }}</h5>
       <div class="user-photo"><img v-bind:src="user.photoLink" alt="avatar"></div>
       <div class="user-stats row">
-        <div class="col-6 user-exp">{{ user.exp }} EXP</div>
-        <div class="col-6 user-lvl"> {{ user.lvl }} LVL</div>
+        <div class="col-8 user-exp">{{ user.exp }}/{{ user.nextExp }} EXP</div>
+        <div class="col-4 user-lvl"> {{ user.lvl }} LVL</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar-fill" :style="{ 'width': user.levelPercentage*100 + '%'  }"></div>
       </div>
     </div>
     <div class="menu">
@@ -28,17 +31,29 @@
       data () {
         return {
           user: {
-            name: 'Bruce Wayne',
-            photoLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Adam_West_as_Batman.jpg/800px-Adam_West_as_Batman.jpg',
-            lvl: 10,
-            exp: 236 },
+            name: '',
+            photoLink: '',
+            lvl: 0,
+            exp: 0 },
           menu: [
             { link: '/', name: 'Dashboard', icon: 'home' },
-            { link: '#', name: 'Awards', icon: 'star' },
+            { link: '/#/rewards', name: 'Awards', icon: 'star' },
             { link: '/#/map', name: 'Map', icon: 'map' },
             { link: '#', name: 'Statistics', icon: 'area-chart' }
           ]
         }
+      },
+      mounted: function () {
+        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Sidebar', {
+          headers: {
+            Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+          }
+        })
+          .then(response => {
+            this.user = response.body
+          }, response => {
+            this.error = response.error
+          })
       }
     }
 </script>
@@ -61,6 +76,15 @@
           border: $main-border;
           border-radius: 50%;
         }
+      }
+      .progress-bar {
+        background-color: black;
+        height: 5px;
+        &-fill {
+           width: 100%;
+           background-color: #207CCA;
+           height: 5px;
+         }
       }
     }
   .menu {

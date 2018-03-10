@@ -1,6 +1,7 @@
 <template>
   <div class="container" id="login-form">
     <h1 class="apkName">SessionBorn</h1>
+    <h5 class="apkDesc">SessionBorn</h5>
     <div class="holder">
     <div class="form-signin">
       <h2 class="form-signin-heading">Please sign in</h2>
