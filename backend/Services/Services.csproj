@@ -48,9 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="IQuestService.cs" />
+    <Compile Include="IScenarioService.cs" />
     <Compile Include="ITokenService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestService.cs" />
+    <Compile Include="ScenarioServices.cs" />
     <Compile Include="TokenService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
