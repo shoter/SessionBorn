@@ -23,7 +23,6 @@
 export default {
     name: 'app',
     components: {
-      LoginForm,
       'navbar': NavBar,
       'sidebar': SideBar,
       'login-form': LoginForm
