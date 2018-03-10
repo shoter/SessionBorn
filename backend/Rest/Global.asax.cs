@@ -45,6 +45,7 @@ namespace Rest
             kernel.Bind<SessionBornEntities>().ToSelf().InRequestScope();
             kernel.Bind<IUserInfoRepository>().To<UserInfoRepository>().InRequestScope();
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
+            kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
         }
     }
 }
