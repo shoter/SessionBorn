@@ -13,10 +13,12 @@ namespace Rest.Controllers
 {
 
 
-    public class ScenarioController : ApiController
+    public class ScenarioController : BaseController
     {
-        private readonly ScenarioRepository scenarioRepository;
+        private readonly IScenarioRepository scenarioRepository;
         private readonly ScenarioServices scenarioServices;
+        private readonly IUserRepository userRepository;
+  
         public ScenarioController(ScenarioRepository scenarioRepository, ScenarioServices scenarioServices)
         {
             this.scenarioRepository = scenarioRepository;
@@ -40,9 +42,11 @@ namespace Rest.Controllers
             };
         }
 
+        [Authorize]
         public IEnumerable<ScenarioGetModel> GetList()
         {
-            foreach(Scenario scenario in scenarioRepository.GetAll())
+            var user = userRepository.GetUser(User.Identity.Name);
+            foreach (Scenario scenario in scenarioRepository.GetUsersScenarios(user.Id))
             {
                 yield return new ScenarioGetModel
                 {
@@ -56,10 +60,13 @@ namespace Rest.Controllers
             }
         }
 
+        [Authorize]
         [Route("api/Scenario/add")]
         public void Post(ScenarioAddModel scenario)
         {
-            scenarioServices.CreateScenario(scenario.scenarioName, scenario.scenarioDesc, scenario.userId);
+            var user = userRepository.GetUser(User.Identity.Name);
+
+            scenarioServices.CreateScenario(scenario.scenarioName, scenario.scenarioDesc, user.Id);
         }
 
 

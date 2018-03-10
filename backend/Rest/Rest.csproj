@@ -428,6 +428,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DamianTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuestController.cs" />
     <Compile Include="Controllers\ScenarioController.cs" />
     <Compile Include="Controllers\SidebarController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -438,6 +439,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\QuestModels.cs" />
     <Compile Include="Models\ScenarioModels.cs" />
     <Compile Include="Models\Sidebars\SidebarViewModel.cs" />
     <Compile Include="Models\Users\CreateUserViewModel.cs" />

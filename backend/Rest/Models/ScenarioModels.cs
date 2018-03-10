@@ -19,6 +19,5 @@ namespace Rest.Models
     {
         public string scenarioName { get; set; }
         public string scenarioDesc { get; set; }
-        public string userId { get; set; }
     }
 }
