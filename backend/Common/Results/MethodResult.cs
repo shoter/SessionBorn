@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Common.Results
 {
@@ -57,6 +60,15 @@ namespace Common.Results
         public string ToString(string separator)
         {
             return string.Join(separator, Errors);
+        }
+
+        public void ThrowHttpException(HttpStatusCode code, string separator = ";")
+        {
+            var response =  new HttpResponseMessage(code)
+            {
+                Content = new StringContent(ToString(separator))
+            };
+            throw new HttpResponseException(response);
         }
 
 

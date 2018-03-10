@@ -14,6 +14,7 @@ namespace Entities
     
     public partial class Token
     {
+        public long ID { get; set; }
         public int UserID { get; set; }
         public string Value { get; set; }
         public System.DateTime DueDate { get; set; }

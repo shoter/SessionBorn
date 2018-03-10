@@ -50,8 +50,8 @@ namespace Services
 
         public void DeleteOldTokenIfAble(User user)
         {
-            var token = tokenRepository.GetToken(user.ID);
-            if (token != null && DateTime.Now > token.DueDate)
+            var tokens = tokenRepository.GetOldTokens(user.ID);
+           foreach(var token in tokens)
             {
                 tokenRepository.Remove(token);
                 tokenRepository.SaveChanges();
@@ -66,9 +66,10 @@ namespace Services
             return token.User;
         }
 
-        public void RenewTokenForUser(User user)
+        public void RenewToken(Token token)
         {
-
+            token.DueDate = CalculateDueDate(token.RememberMe);
+            tokenRepository.SaveChanges();
         }
     }
 }

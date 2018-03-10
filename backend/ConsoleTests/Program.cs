@@ -18,12 +18,7 @@ namespace ConsoleTests
 
             var context = new SessionBornEntities();
 
-            var repo = new TestRepository(context);
 
-            var dupa = repo.GetAll();
-
-            foreach (var d in dupa)
-                Console.WriteLine($"{d.ID} - {d.Name}");
 
            
             Console.ReadKey();

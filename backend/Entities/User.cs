@@ -18,6 +18,7 @@ namespace Entities
         public User()
         {
             this.Scenarios = new HashSet<Scenario>();
+            this.Tokens = new HashSet<Token>();
         }
     
         public int ID { get; set; }
@@ -26,6 +27,7 @@ namespace Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Scenario> Scenarios { get; set; }
-        public virtual Token Token { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Token> Tokens { get; set; }
     }
 }

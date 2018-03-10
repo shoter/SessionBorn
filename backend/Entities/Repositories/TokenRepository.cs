@@ -19,9 +19,10 @@ namespace Entities.Repositories
             return Where(t => now > t.DueDate).ToList();
         }
 
-        public Token GetToken(int userID)
+        public List<Token> GetOldTokens(int userID)
         {
-            return SingleOrDefault(t => t.UserID == userID);
+            var now = DateTime.Now;
+            return Where(t => t.UserID == userID && now >= t.DueDate).ToList();
         }
 
         public Token GetToken(string tokenValue)

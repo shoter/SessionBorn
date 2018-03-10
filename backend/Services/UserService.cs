@@ -39,7 +39,6 @@ namespace Services
 
         public MethodResult CanLogin(string username, string plainTextPassword)
         {
-
             if (userRepository.Exists(username) == false)
                 return new MethodResult("User does not exist!");
 
@@ -48,12 +47,14 @@ namespace Services
             if (user.Password != hashedPassword)
                 return new MethodResult("Wrong password!");
 
+
             return MethodResult.Success;
         }
 
         public UserToken Login(string username, string plainTextPassword, bool rememberMe)
         {
             var user = userRepository.GetUser(username);
+
             tokenService.DeleteOldTokenIfAble(user);
 
             var token = tokenService.CreateToken(user, rememberMe);

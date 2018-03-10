@@ -1,5 +1,6 @@
 ﻿using Common.Results;
 using Entities;
+using ProjectSpecific.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace Services
     {
         User CreateUser(string username, string plainTextPassword);
         MethodResult CanCreateUser(string username, string plainTextPassword);
-        
+        MethodResult CanLogin(string username, string plainTextPassword);
+        UserToken Login(string username, string plainTextPassword, bool rememberMe);
+
+
     }
 }

@@ -10,7 +10,7 @@ namespace Entities.Repositories
     public interface ITokenRepository : IRepository<Token>
     {
         List<Token> GetDueTokens();
-        Token GetToken(int userID);
+        List<Token> GetOldTokens(int userID);
         Token GetToken(string tokenValue);
     }
 }

@@ -57,10 +57,8 @@
     <Compile Include="QuestType.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\ITestRepository.cs" />
     <Compile Include="Repositories\ITokenRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Repositories\TestRepository.cs" />
     <Compile Include="Repositories\TokenRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Scenario.cs">
@@ -80,9 +78,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SessionBornEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Test.cs">
-      <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Token.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
