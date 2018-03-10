@@ -4,11 +4,9 @@
     <div class="row">
       <sidebar></sidebar>
       <div class="col-sm-10 main">
-        <img src="./assets/logo.png">
         <router-view></router-view>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -20,7 +18,12 @@ export default {
     name: 'app',
     components: {
       'navbar': NavBar,
-      'sidebar': SideBar
+      'sidebar': SideBar,
+      data () {
+        return {
+          auth: true
+        }
+      }
     }
 }
 </script>
