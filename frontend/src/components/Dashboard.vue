@@ -4,15 +4,13 @@
       <b-card  v-for="scenario in scenarios" :key="scenario.id" class="tile"
               v-bind:title="scenario.scenarioName"
               v-bind:sub-title="scenario.scenarioDesc">
-        <p class="card-text">
-          Some quick example text to build on the <em>card title</em> and make up the bulk of the card's content.
-        </p>
-        <a href="#"
-           class="card-link">Card link</a>
+        <div class="progress-bar">
+          <div class="progress-bar-fill" :style="{ 'width': scenario.percentDone + '%'  }"></div>
+        </div>
         <b-link href="#"
-                class="card-link">Another link</b-link>
-        <div slot="footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
+                class="card-link">See quests</b-link>
+        <div v-if="scenario.completed" slot="footer">
+          <small class="text-muted">Finished scenario!</small>
         </div>
       </b-card>
     </b-card-group>
@@ -47,5 +45,14 @@ export default {
     background-color: $main-dark;
     color: $text-color;
     border-right: $main-border;
+    .progress-bar {
+      background-color: black;
+      height: 5px;
+      &-fill {
+        width: 100%;
+        background-color: #a0e27a;
+        height: 5px;
+       }
+    }
   }
 </style>

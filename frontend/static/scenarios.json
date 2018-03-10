@@ -12,8 +12,8 @@
 "scenarioName":"Fizyka klasyczna",
 "scenarioDesc": "Quisque rutrum, urna mattis faucibus. Aliquam tempus et, dictum sem.",
 "userID" : 1,
-"completed" : false,
-"percentDone" : 0
+"completed" : true,
+"percentDone" : 100
 },
   {
     "id": 3,
@@ -29,7 +29,7 @@
     "scenarioDesc": "Cum sociis natoque penatibus et ultrices posuere laoreet, tortor nibh.",
     "userID" : 1,
     "completed" : false,
-    "percentDone" : 0
+    "percentDone" : 60
   },
   {
     "id": 5,
@@ -37,7 +37,7 @@
     "scenarioDesc": "Nullam volutpat, velit nulla eu cursus pulvinar sit amet, tellus.",
     "userID" : 1,
     "completed" : false,
-    "percentDone" : 0
+    "percentDone" : 90
   },
   {
     "id": 6,
@@ -45,7 +45,7 @@
     "scenarioDesc": "Nam eu ante. Proin at tortor. Praesent commodo convallis tellus.",
     "userID" : 1,
     "completed" : false,
-    "percentDone" : 0
+    "percentDone" : 5
   }
 ]
 
