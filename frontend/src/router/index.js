@@ -4,6 +4,7 @@ import Dashboard from '@/components/Dashboard'
 import Map from '@/components/Map'
 import Quests from '@/components/Quests'
 import Rewards from '@/components/Rewards'
+import Quiz from '@/components/Quiz'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
       path: '/rewards',
       name: 'Rewards',
       component: Rewards
+    },
+    {
+      path: '/quiz/:id',
+      name: 'Quiz',
+      component: Quiz
     }
   ]
 })
