@@ -10,8 +10,8 @@
     </div>
     <div class="menu">
       <h6 class="menu-header text-uppercase">Menu</h6>
-      <b-nav vertical v-for="item in menu"  :key="item.name">
-        <b-nav-item active class="menu-item" v-bind:href="item.link">
+      <b-nav vertical>
+        <b-nav-item  v-for="item in menu"  :key="item.name" active class="menu-item" v-bind:href="item.link">
           <div class="row">
           <span class="icon col-3"><icon v-bind:name="item.icon"></icon></span>
           <span class="name col-9">{{ item.name }}</span>
@@ -45,13 +45,12 @@
 
 <style lang="scss" scoped>
   @import "./../scss/variables.scss";
-  $menu-secondary: darkgray;
-
   .sidebar {
     background-color: $main-sidebar-color;
     padding-top: 50px;
     overflow-x: hidden;
     text-align: center;
+    color: $text-color;
     .user-profile {
       .user-photo {
         img {
@@ -63,10 +62,12 @@
       }
     }
   .menu {
+    width: 100%;
   .menu-item {
       background: $menu-secondary;
       border-right: $main-border;
       text-align: left;
+      width: 100%;
       height: 50px;
       padding: 0;
       line-height: 50px;
@@ -76,9 +77,10 @@
         margin-left: 15px;
           .icon {
             background: $text-color;
-            color: $menu-secondary;
+            color: $main-sidebar-color;
           }
           .name {
+            color: $main-sidebar-color;
           }
       }
       :hover {

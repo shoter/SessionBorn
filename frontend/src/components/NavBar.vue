@@ -17,7 +17,7 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-text>
+        <b-nav-text class="line">
           <icon name="clock-o"></icon> Time:
           {{ time_string }}
         </b-nav-text>
@@ -25,7 +25,7 @@
 
       <b-navbar-nav class="ml-auto">
 
-        <b-nav-item href="#"><icon name="sign-out"></icon> Logout</b-nav-item>
+        <b-nav-item  class="line" href="#"><icon name="sign-out"></icon> Logout</b-nav-item>
       </b-navbar-nav>
 
 
@@ -61,5 +61,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+.line {
+  line-height: 30px;
+}
 </style>
