@@ -33,9 +33,9 @@
             lvl: 10,
             exp: 236 },
           menu: [
-            { link: '#', name: 'Dashboard', icon: 'home' },
-            { link: '#', name: 'Scenarios', icon: 'file-text' },
+            { link: '/', name: 'Dashboard', icon: 'home' },
             { link: '#', name: 'Awards', icon: 'star' },
+            { link: '#', name: 'Map', icon: 'map' },
             { link: '#', name: 'Statistics', icon: 'area-chart' }
           ]
         }

@@ -3,7 +3,7 @@
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-    <b-navbar-brand href="#">SessionBorn</b-navbar-brand>
+    <b-navbar-brand class="brand" href="#">SessionBorn</b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
 
@@ -61,6 +61,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .navbar {
+    .brand {
+      font-family: 'DarkShadow', 'Gudea', Helvetica, Arial, sans-serif;
+      font-size: 2rem;
+    }
+  }
 .line {
   line-height: 30px;
 }

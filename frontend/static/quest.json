@@ -1,5 +1,4 @@
-{
-  "Quests": [
+[
     {
       "id": 100,
       "name": "Wyklad matematyka",
@@ -42,7 +41,7 @@
     {
       "id": 200,
       "name": "Wyklad fizyka",
-      "scenarioId": 2,
+      "scenarioId": 1,
       "completed": true,
       "type": "SimpleQuest",
       "dueDate": "2018-11-07T08:15:30-05:00",
@@ -53,12 +52,12 @@
       "points": 100
     },
     {
-      "id": 200,
+      "id": 201,
       "name": "Wyklad fizyka",
-      "scenarioId": 2,
+      "scenarioId": 1,
       "completed": false,
       "type": "SimpleQuest",
-      "dueDate": "2018-11-05T08:15:30-05:00",
+      "dueDate": "2018-05-05T08:15:30-05:00",
       "doneDate": null,
       "Latitude": null,
       "Longitude": null,
@@ -66,4 +65,3 @@
       "points": 10000
     }
   ]
-}

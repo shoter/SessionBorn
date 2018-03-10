@@ -50,7 +50,7 @@
   .apkName{
     text-align: center;
     color: white;
-    font-weight: bold;
+    font-family: 'DarkShadow', 'Gudea', Helvetica, Arial, sans-serif;
     font-size: 5rem;
   }
   .holder{
