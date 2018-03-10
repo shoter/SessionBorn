@@ -19,8 +19,8 @@ namespace Services
 
         public Quest CreateQuest(string name, string desc, bool completed,
                                 int questType, int scenarioID, System.DateTime dueDate,
-                                System.DateTime doneDate, Nullable<decimal> latitude,
-                                Nullable<decimal> longitude, int points )
+                                System.DateTime doneDate,  int points, Nullable<decimal> latitude = null,
+                                Nullable<decimal> longitude = null )
 
         {
             var quest = new Quest()
@@ -37,11 +37,45 @@ namespace Services
                 Points = points
             };
 
+            
             questRepository.Add(quest);
             questRepository.SaveChanges();
             return quest;
 
         }
+
+        public void RemoveQuest(int questID)
+        {
+            questRepository.Remove(questID);
+            questRepository.SaveChanges();
+        }
+
+
+        public void EditQuest(int questID, string name, string desc, bool completed,
+                                int questType, int scenarioID, System.DateTime dueDate,
+                                System.DateTime doneDate, int points, Nullable<decimal> latitude = null,
+                                Nullable<decimal> longitude = null)
+        {
+            Quest questToEdit = questRepository.FirstOrDefault(x => x.ID == scenarioID);
+
+            questToEdit.Name = name;
+            questToEdit.Description = desc;
+            questToEdit.Completed = completed;
+            questToEdit.QuestTypeID = questType;
+            questToEdit.ScenarioID = scenarioID;
+            questToEdit.DueDate = dueDate;
+            questToEdit.DoneDate = doneDate;
+            questToEdit.Latitude = latitude;
+            questToEdit.Longitude = longitude;
+            questToEdit.Points = points;
+
+            questRepository.SaveChanges();
+      
+        }
+
+
+
+
     }
     
 }

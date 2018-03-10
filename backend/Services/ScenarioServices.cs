@@ -30,5 +30,38 @@ namespace Services
 
         }
 
+
+        public void RemoveScenario(int scenarioID)
+        {
+            scenarioRepository.Remove(scenarioID);
+            scenarioRepository.SaveChanges();
+        }
+
+        public void EditScenario(int scenarioID, string name, string desc, int userID)
+        {
+            Scenario scenarioToEdit = scenarioRepository.FirstOrDefault(x => x.ID == scenarioID);
+
+            scenarioToEdit.Name = name;
+            scenarioToEdit.Description = desc;
+            scenarioToEdit.UserID = userID;
+
+            scenarioRepository.SaveChanges();
+        }
+
+        public decimal CalculateCompletion(int scenarioID)
+        {
+            List<Quest> quests = scenarioRepository.FirstOrDefault(x => x.ID == scenarioID).Quests.ToList();
+            decimal points = 0;
+            decimal pointsGained = 0;
+            foreach (Quest q in quests)
+            {
+                points = points + q.Points;
+                if (q.Completed)
+                {
+                    pointsGained = pointsGained + q.Points;
+                }
+            }
+            return (pointsGained / points)*100;
+        }
     }
 }

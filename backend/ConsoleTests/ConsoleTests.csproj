@@ -69,7 +69,7 @@
       <Name>Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectSpecific\ProjectSpecific.csproj">
-      <Project>{ab77631d-25fd-449f-961b-f0bde424bb89}</Project>
+      <Project>{AB77631D-25FD-449F-961B-F0BDE424BB89}</Project>
       <Name>ProjectSpecific</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">

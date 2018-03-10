@@ -57,8 +57,12 @@
     <Compile Include="QuestType.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IQuestRepository.cs" />
+    <Compile Include="Repositories\IScenarioRepository.cs" />
     <Compile Include="Repositories\ITokenRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\QuestRepository.cs" />
+    <Compile Include="Repositories\ScenarioRepository.cs" />
     <Compile Include="Repositories\TokenRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Scenario.cs">
