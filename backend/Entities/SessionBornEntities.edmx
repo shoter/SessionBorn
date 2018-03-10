@@ -45,6 +45,16 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="75" Nullable="false" />
         </EntityType>
+        <EntityType Name="Rewards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="258" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Scenarios">
           <Key>
             <PropertyRef Name="ID" />
@@ -67,6 +77,7 @@
           </Key>
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Experience" Type="int" Nullable="false" />
+          <Property Name="Points" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Quests_QuestTypes">
           <End Role="QuestTypes" Type="Self.QuestTypes" Multiplicity="1" />
@@ -89,6 +100,18 @@
             </Principal>
             <Dependent Role="Quests">
               <PropertyRef Name="ScenarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rewards_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Rewards" Type="Self.Rewards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rewards">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -120,6 +143,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quests" EntityType="Self.Quests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestTypes" EntityType="Self.QuestTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rewards" EntityType="Self.Rewards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Scenarios" EntityType="Self.Scenarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfos" EntityType="Self.UserInfos" Schema="dbo" store:Type="Tables" />
@@ -130,6 +154,10 @@
           <AssociationSet Name="FK_Quests_Scenarios" Association="Self.FK_Quests_Scenarios">
             <End Role="Scenarios" EntitySet="Scenarios" />
             <End Role="Quests" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rewards_AspNetUsers" Association="Self.FK_Rewards_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Rewards" EntitySet="Rewards" />
           </AssociationSet>
           <AssociationSet Name="FK_Scenarios_AspNetUsers" Association="Self.FK_Scenarios_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -165,6 +193,11 @@
           <AssociationSet Name="FK_Quests_Scenarios" Association="SessionBornModel.FK_Quests_Scenarios">
             <End Role="Scenario" EntitySet="Scenarios" />
             <End Role="Quest" EntitySet="Quests" />
+          </AssociationSet>
+          <EntitySet Name="Rewards" EntityType="SessionBornModel.Reward" />
+          <AssociationSet Name="FK_Rewards_AspNetUsers" Association="SessionBornModel.FK_Rewards_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Reward" EntitySet="Rewards" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Quest">
@@ -223,6 +256,7 @@
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Scenarios" Relationship="SessionBornModel.FK_Scenarios_AspNetUsers" FromRole="AspNetUser" ToRole="Scenario" />
           <NavigationProperty Name="UserInfo" Relationship="SessionBornModel.FK_UserInfos_AspNetUsers" FromRole="AspNetUser" ToRole="UserInfo" />
+          <NavigationProperty Name="Rewards" Relationship="SessionBornModel.FK_Rewards_AspNetUsers" FromRole="AspNetUser" ToRole="Reward" />
         </EntityType>
         <EntityType Name="Scenario">
           <Key>
@@ -242,6 +276,7 @@
           <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Experience" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="SessionBornModel.FK_UserInfos_AspNetUsers" FromRole="UserInfo" ToRole="AspNetUser" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Scenarios_AspNetUsers">
           <End Type="SessionBornModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -276,6 +311,29 @@
             </Principal>
             <Dependent Role="Quest">
               <PropertyRef Name="ScenarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Reward">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="258" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SessionBornModel.FK_Rewards_AspNetUsers" FromRole="Reward" ToRole="AspNetUser" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Rewards_AspNetUsers">
+          <End Type="SessionBornModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SessionBornModel.Reward" Role="Reward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reward">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -341,8 +399,20 @@
           <EntitySetMapping Name="UserInfos">
             <EntityTypeMapping TypeName="SessionBornModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfos">
+                <ScalarProperty Name="Points" ColumnName="Points" />
                 <ScalarProperty Name="Experience" ColumnName="Experience" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rewards">
+            <EntityTypeMapping TypeName="SessionBornModel.Reward">
+              <MappingFragment StoreEntitySet="Rewards">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,6 +14,8 @@
         <AssociationConnector Association="SessionBornModel.FK_Scenarios_AspNetUsers" />
         <AssociationConnector Association="SessionBornModel.FK_UserInfos_AspNetUsers" />
         <AssociationConnector Association="SessionBornModel.FK_Quests_Scenarios" />
+        <EntityTypeShape EntityType="SessionBornModel.Reward" Width="1.5" PointX="3" PointY="1.75" />
+        <AssociationConnector Association="SessionBornModel.FK_Rewards_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

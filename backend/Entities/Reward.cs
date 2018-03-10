@@ -12,11 +12,13 @@ namespace Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class UserInfo
+    public partial class Reward
     {
+        public long ID { get; set; }
         public string UserID { get; set; }
-        public int Experience { get; set; }
-        public int Points { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Cost { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

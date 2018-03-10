@@ -18,6 +18,7 @@ namespace Entities
         public AspNetUser()
         {
             this.Scenarios = new HashSet<Scenario>();
+            this.Rewards = new HashSet<Reward>();
         }
     
         public string Id { get; set; }
@@ -36,5 +37,7 @@ namespace Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Scenario> Scenarios { get; set; }
         public virtual UserInfo UserInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reward> Rewards { get; set; }
     }
 }

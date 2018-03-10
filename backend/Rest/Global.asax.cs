@@ -13,6 +13,7 @@ using Ninject.Web.Common;
 using Services;
 using Ninject.Web.Mvc;
 using Entities;
+using Common.Transactions;
 
 namespace Rest
 {
@@ -51,6 +52,7 @@ namespace Rest
             kernel.Bind<IQuestService>().To<QuestService>().InRequestScope();
 
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
+            kernel.Bind<ITransactionScopeProvider>().To<StandardTransactionScopeProvider>().InRequestScope();
         }
     }
 }

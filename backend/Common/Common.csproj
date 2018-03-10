@@ -46,6 +46,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
@@ -75,6 +76,11 @@
     <Compile Include="Randoms\RandomGenerator.cs" />
     <Compile Include="Results\MethodResult.cs" />
     <Compile Include="Results\MethodResultType.cs" />
+    <Compile Include="Transactions\ITransactionScope.cs" />
+    <Compile Include="Transactions\ITransactionScopeProvider.cs" />
+    <Compile Include="Transactions\StandardTransactionScope.cs" />
+    <Compile Include="Transactions\StandardTransactionScopeProvider.cs" />
+    <Compile Include="TransactionUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
