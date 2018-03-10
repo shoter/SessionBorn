@@ -428,12 +428,9 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DamianTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-<<<<<<< HEAD
     <Compile Include="Controllers\ScenarioController.cs" />
-=======
     <Compile Include="Controllers\SidebarController.cs" />
     <Compile Include="Controllers\UserController.cs" />
->>>>>>> 16768c475c78afd84d5a97fe841549e4aa889e24
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -441,11 +438,8 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-<<<<<<< HEAD
     <Compile Include="Models\ScenarioModels.cs" />
-=======
     <Compile Include="Models\Sidebars\SidebarViewModel.cs" />
->>>>>>> 16768c475c78afd84d5a97fe841549e4aa889e24
     <Compile Include="Models\Users\CreateUserViewModel.cs" />
     <Compile Include="Models\Users\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
