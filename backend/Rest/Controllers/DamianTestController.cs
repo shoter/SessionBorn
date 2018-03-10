@@ -9,8 +9,8 @@ namespace Rest.Controllers
 {
     public class DamianTestController : Controller
     {
-        private readonly IUserRepository userRepository;
-        public DamianTestController(IUserRepository userRepository)
+        private readonly IUserInfoRepository userRepository;
+        public DamianTestController(IUserInfoRepository userRepository)
         {
             this.userRepository = userRepository;
         }

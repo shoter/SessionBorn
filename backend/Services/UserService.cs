@@ -14,8 +14,8 @@ namespace Services
     public class UserService : IUserService
     {
         private readonly IEncoder passwordHasher = new SHA256();
-        private readonly IUserRepository userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IUserInfoRepository userRepository;
+        public UserService(IUserInfoRepository userRepository)
         {
             this.userRepository = userRepository;
         }

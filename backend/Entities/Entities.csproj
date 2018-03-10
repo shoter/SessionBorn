@@ -60,8 +60,8 @@
     <Compile Include="QuestType.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\IUserInfoRepository.cs" />
+    <Compile Include="Repositories\UserInfoRepository.cs" />
     <Compile Include="Scenario.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
@@ -79,6 +79,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SessionBornEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="UserInfo.cs">
+      <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

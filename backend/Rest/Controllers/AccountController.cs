@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Entities;
+using Entities.Repositories;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -26,9 +28,11 @@ namespace Rest.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private readonly IUserInfoRepository userInfoRepository;
 
         public AccountController()
         {
+            userInfoRepository = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IUserInfoRepository)) as IUserInfoRepository;
         }
 
         public AccountController(ApplicationUserManager userManager,
@@ -36,6 +40,7 @@ namespace Rest.Controllers
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+            userInfoRepository = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IUserInfoRepository)) as IUserInfoRepository;
         }
 
         public ApplicationUserManager UserManager
@@ -332,6 +337,15 @@ namespace Rest.Controllers
             var user = new ApplicationUser() { UserName = model.Username, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            var info = new UserInfo()
+            {
+                UserID = user.Id,
+                Experience = 0
+            };
+
+            userInfoRepository.Add(info);
+            userInfoRepository.SaveChanges();
 
             if (!result.Succeeded)
             {

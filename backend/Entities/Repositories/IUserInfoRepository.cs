@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Entities.Repositories
 {
-    public interface IUserRepository : IRepository<AspNetUser>
+    public interface IUserInfoRepository : IRepository<UserInfo>
     {
-        AspNetUser GetUser(string username);
-        bool Exists(string username);
 
     }
 }

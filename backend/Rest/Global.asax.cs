@@ -41,7 +41,7 @@ namespace Rest
         private void registerServices(IKernel kernel)
         {
             kernel.Bind<SessionBornEntities>().ToSelf().InRequestScope();
-            kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
+            kernel.Bind<IUserInfoRepository>().To<UserInfoRepository>().InRequestScope();
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
         }
     }
