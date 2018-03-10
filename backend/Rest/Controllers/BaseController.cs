@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entities;
+using Entities.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,6 +13,17 @@ namespace Rest.Controllers
 {
     public class BaseController : ApiController
     {
+        private readonly IUserRepository userRepository;
+        public BaseController()
+        {
+            userRepository = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IUserRepository)) as IUserRepository;
+        }
+
+        public AspNetUser GetCurrentUser()
+        {
+            return userRepository.GetUser(User.Identity.Name);
+        }
+
         [ApiExplorerSettings(IgnoreApi = true)]
         public void ThrowHttpException(HttpStatusCode code, string message)
         {

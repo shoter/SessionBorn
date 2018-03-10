@@ -60,10 +60,15 @@
     <Compile Include="QuestType.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IRewardRepository.cs" />
     <Compile Include="Repositories\IUserInfoRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\RewardRepository.cs" />
     <Compile Include="Repositories\UserInfoRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Reward.cs">
+      <DependentUpon>SessionBornEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Scenario.cs">
       <DependentUpon>SessionBornEntities.tt</DependentUpon>
     </Compile>

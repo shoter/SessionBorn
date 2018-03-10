@@ -30,5 +30,6 @@ namespace Entities
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Scenario> Scenarios { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
+        public virtual DbSet<Reward> Rewards { get; set; }
     }
 }
