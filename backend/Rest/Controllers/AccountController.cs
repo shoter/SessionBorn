@@ -336,7 +336,12 @@ namespace Rest.Controllers
 
             var user = new ApplicationUser() { UserName = model.Username, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult result = UserManager.Create(user, model.Password);            
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
 
             var info = new UserInfo()
             {
@@ -346,11 +351,6 @@ namespace Rest.Controllers
 
             userInfoRepository.Add(info);
             userInfoRepository.SaveChanges();
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
 
             return Ok();
         }
