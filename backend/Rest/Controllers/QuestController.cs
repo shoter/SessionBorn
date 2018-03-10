@@ -28,7 +28,7 @@ namespace Rest.Controllers
 
             bool isquiz = false;
 
-            if (quest.QuestType.ID == (int)QuestTypeEnum.Meeting)
+            if (quest.QuestType.ID == (int)QuestTypeEnum.Quiz)
             {
                 isquiz = true;
             }
