@@ -50,6 +50,7 @@ namespace Rest
             kernel.Bind<IQuestRepository>().To<QuestRepository>().InRequestScope();
             kernel.Bind<IQuestService>().To<QuestService>().InRequestScope();
 
+            kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
         }
     }
 }
