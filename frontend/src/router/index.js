@@ -7,6 +7,7 @@ import Rewards from '@/components/Rewards'
 import Achievments from '@/components/Achievments'
 import Quiz from '@/components/Quiz'
 import Statistics from '@/components/Statistics'
+import Calendar from '@/components/Calendar'
 // import Toastr
 // import toastr less file: need webpack less-loader
 // Register vue component
@@ -54,6 +55,11 @@ export default new Router({
       path: '/quiz/:id',
       name: 'Quiz',
       component: Quiz
+    },
+    {
+      path: '/calendar',
+      name: 'Calendar',
+      component: Calendar
     }
   ]
 })

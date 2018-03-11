@@ -23,6 +23,7 @@
     "vue-awesome": "^2.3.5",
     "vue-chartjs": "^3.2.1",
     "vue-cookie": "^1.1.4",
+    "vue-full-calendar": "^2.5.2",
     "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
     "vue-snotify": "^3.0.4",
