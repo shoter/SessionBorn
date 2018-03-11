@@ -10,6 +10,5 @@ namespace Entities.Repositories
     public interface IQuestRepository : IRepository<Quest>
     {
         List<Quest> GetScenarioQuests(int scenarioID);
-        List<Quest> GetQuestsForUserForDayMonth(int year, int month, List<Scenario> scenarios);
     }
 }

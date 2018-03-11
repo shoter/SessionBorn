@@ -21,12 +21,7 @@ namespace Entities.Repositories
         {
             return SingleOrDefault(x => x.ID == questID);
         }
-
-        public List<Quest> GetQuestsForUserForDayMonth(int year, int month, List<Scenario> scenarios)
-        {
-
-            return Where(x => x.DueDate.Month == month && x.DueDate.Year == year && scenarios.Contains(x.Scenario)).ToList();
-        }
+        
 
      }
 }

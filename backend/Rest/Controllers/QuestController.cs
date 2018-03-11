@@ -56,12 +56,12 @@ namespace Rest.Controllers
         }
 
 
-        [Route("api/Quest/{year}/{month}")]
+        [Route("api/Quest/")]
         [Authorize]
-        public IEnumerable<QuestDateModel> getForMonthYear(int year, int month)
+        public IEnumerable<QuestDateModel> getAllQuests()
         {
             var user = GetCurrentUser();
-            var quests = questRepository.GetQuestsForUserForDayMonth(year, month, user.Scenarios.ToList());
+            var quests = questRepository.GetAll().ToList();
 
             return quests.Select(quest =>
             new QuestDateModel()

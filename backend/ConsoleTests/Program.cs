@@ -67,28 +67,28 @@ namespace ConsoleTests
             }
 
 
-            Tuple<decimal, decimal> latlong = getPoints();
-            questService.CreateQuest("Kolokwium 1", "1sze Kolokwium z Unixów", 1, 2, new DateTime(2018, 01, 11), 300, latlong.Item1, latlong.Item2);
-            questService.CreateQuest("Kolokwium 2", "2gie Kolokwium z Unixów", 1, 2, new DateTime(2018, 03, 14), 300, latlong.Item1, latlong.Item2);
-            latlong = getPoints();
-            questService.CreateQuest("Wykład", "Wykład z Unixów", 3, 2, new DateTime(2018, 02, 14), 20, latlong.Item1, latlong.Item2);
-            questService.CreateQuest("Pytania", "Pytania z próbnego egzaminu z zeszłego roku", 1, 2, new DateTime(2018, 05, 14), 200);
-            latlong = getPoints();
-            questService.CreateQuest("Kolokwium 1", "Kolokwium z Liczb Zespolonych", 1, 3, new DateTime(2018, 2, 5), 300, latlong.Item1, latlong.Item2);
-            questService.CreateQuest("Kolokwium 2", "Kolokwium z Dekompozycji Jordana", 1, 3, new DateTime(2018, 3, 7), 300, latlong.Item1, latlong.Item2);
-            latlong = getPoints();
-            questService.CreateQuest("Wykład", "Wykład z Algebry", 3, 3, new DateTime(2018, 3, 14), 20, latlong.Item1, latlong.Item2);
-            questService.CreateQuest("Pytania", "Pytania zdobyte od starszej grupy", 1, 3, new DateTime(2018, 6, 14), 200);
-            latlong = getPoints();
-            questService.CreateQuest("Egzamin", "Ekstremalnie trudny egzamin z algebry", 2, 3, new DateTime(2018, 6, 15), 600);
-            latlong = getPoints();
-            questService.CreateQuest("Kolokwium 1", "Kolokwium z Szybkiej Transformaty Fouriera", 1, 5, new DateTime(2018, 4, 5), 300, latlong.Item1, latlong.Item2);
-            questService.CreateQuest("Kolokwium 2", "Kolokwium z Przestrzeni Hilberta", 1, 5, new DateTime(2018, 05, 7), 300, latlong.Item1, latlong.Item2);
-            latlong = getPoints();
-            questService.CreateQuest("Wykład", "Wykład z obowiązkową obecnością z Matematyki", 3, 3, new DateTime(2018, 05, 14), 100, latlong.Item1, latlong.Item2);
-            questService.CreateQuest("Pytania", "Pytania zdobyte od starszej grupy", 1, 5, new DateTime(2018, 05, 14), 200);
-            latlong = getPoints();
-            questService.CreateQuest("Egzamin", "Prosty egzamin z matematyki", 2, 5, new DateTime(2018, 05, 14), 600);
+            //Tuple<decimal, decimal> latlong = getPoints();
+            //questService.CreateQuest("Kolokwium 1", "1sze Kolokwium z Unixów", 1, 2, new DateTime(2018, 01, 11), 300, latlong.Item1, latlong.Item2);
+            //questService.CreateQuest("Kolokwium 2", "2gie Kolokwium z Unixów", 1, 2, new DateTime(2018, 03, 14), 300, latlong.Item1, latlong.Item2);
+            //latlong = getPoints();
+            //questService.CreateQuest("Wykład", "Wykład z Unixów", 3, 2, new DateTime(2018, 02, 14), 20, latlong.Item1, latlong.Item2);
+            //questService.CreateQuest("Pytania", "Pytania z próbnego egzaminu z zeszłego roku", 1, 2, new DateTime(2018, 05, 14), 200);
+            //latlong = getPoints();
+            //questService.CreateQuest("Kolokwium 1", "Kolokwium z Liczb Zespolonych", 1, 3, new DateTime(2018, 2, 5), 300, latlong.Item1, latlong.Item2);
+            //questService.CreateQuest("Kolokwium 2", "Kolokwium z Dekompozycji Jordana", 1, 3, new DateTime(2018, 3, 7), 300, latlong.Item1, latlong.Item2);
+            //latlong = getPoints();
+            //questService.CreateQuest("Wykład", "Wykład z Algebry", 3, 3, new DateTime(2018, 3, 14), 20, latlong.Item1, latlong.Item2);
+            //questService.CreateQuest("Pytania", "Pytania zdobyte od starszej grupy", 1, 3, new DateTime(2018, 6, 14), 200);
+            //latlong = getPoints();
+            //questService.CreateQuest("Egzamin", "Ekstremalnie trudny egzamin z algebry", 2, 3, new DateTime(2018, 6, 15), 600);
+            //latlong = getPoints();
+            //questService.CreateQuest("Kolokwium 1", "Kolokwium z Szybkiej Transformaty Fouriera", 1, 5, new DateTime(2018, 4, 5), 300, latlong.Item1, latlong.Item2);
+            //questService.CreateQuest("Kolokwium 2", "Kolokwium z Przestrzeni Hilberta", 1, 5, new DateTime(2018, 05, 7), 300, latlong.Item1, latlong.Item2);
+            //latlong = getPoints();
+            //questService.CreateQuest("Wykład", "Wykład z obowiązkową obecnością z Matematyki", 3, 3, new DateTime(2018, 05, 14), 100, latlong.Item1, latlong.Item2);
+            //questService.CreateQuest("Pytania", "Pytania zdobyte od starszej grupy", 1, 5, new DateTime(2018, 05, 14), 200);
+            //latlong = getPoints();
+            //questService.CreateQuest("Egzamin", "Prosty egzamin z matematyki", 2, 5, new DateTime(2018, 05, 14), 600);
 
 
 
