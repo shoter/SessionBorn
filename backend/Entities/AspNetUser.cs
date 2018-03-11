@@ -19,6 +19,7 @@ namespace Entities
         {
             this.Rewards = new HashSet<Reward>();
             this.Scenarios = new HashSet<Scenario>();
+            this.Achievements = new HashSet<Achievement>();
         }
     
         public string Id { get; set; }
@@ -39,6 +40,7 @@ namespace Entities
         public virtual ICollection<Reward> Rewards { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Scenario> Scenarios { get; set; }
-        public virtual Achievement Achievement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Achievement> Achievements { get; set; }
     }
 }

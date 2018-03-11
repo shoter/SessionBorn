@@ -33,7 +33,7 @@ namespace Entities
         public virtual DbSet<Quest> Quests { get; set; }
         public virtual DbSet<Scenario> Scenarios { get; set; }
         public virtual DbSet<QuestType> QuestTypes { get; set; }
-        public virtual DbSet<Achievement> Achievements { get; set; }
         public virtual DbSet<AchievementType> AchievementTypes { get; set; }
+        public virtual DbSet<Achievement> Achievements { get; set; }
     }
 }

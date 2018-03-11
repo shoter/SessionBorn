@@ -14,6 +14,7 @@ namespace Entities
     
     public partial class Achievement
     {
+        public int ID { get; set; }
         public string UserID { get; set; }
         public int AchievementTypeID { get; set; }
         public System.DateTime AddDate { get; set; }

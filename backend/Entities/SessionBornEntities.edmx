@@ -7,8 +7,9 @@
     <Schema Namespace="SessionBornModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Achievements">
           <Key>
-            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AchievementTypeID" Type="int" Nullable="false" />
           <Property Name="AddDate" Type="datetime" Nullable="false" />
@@ -128,7 +129,7 @@
         </Association>
         <Association Name="FK_Achievements_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Achievements" Type="Self.Achievements" Multiplicity="0..1" />
+          <End Role="Achievements" Type="Self.Achievements" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -312,8 +313,8 @@
             <End Role="QuestType" EntitySet="QuestTypes" />
             <End Role="Quest" EntitySet="Quests" />
           </AssociationSet>
-          <EntitySet Name="Achievements" EntityType="SessionBornModel.Achievement" />
           <EntitySet Name="AchievementTypes" EntityType="SessionBornModel.AchievementType" />
+          <EntitySet Name="Achievements" EntityType="SessionBornModel.Achievement" />
           <AssociationSet Name="FK_Achievements_AchievementTypes" Association="SessionBornModel.FK_Achievements_AchievementTypes">
             <End Role="AchievementType" EntitySet="AchievementTypes" />
             <End Role="Achievement" EntitySet="Achievements" />
@@ -322,7 +323,7 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Achievement" EntitySet="Achievements" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -342,7 +343,7 @@
           <NavigationProperty Name="UserInfo" Relationship="SessionBornModel.FK_UserInfos_AspNetUsers" FromRole="AspNetUser" ToRole="UserInfo" />
           <NavigationProperty Name="Rewards" Relationship="SessionBornModel.FK_Rewards_AspNetUsers" FromRole="AspNetUser" ToRole="Reward" />
           <NavigationProperty Name="Scenarios" Relationship="SessionBornModel.FK_Scenarios_AspNetUsers" FromRole="AspNetUser" ToRole="Scenario" />
-          <NavigationProperty Name="Achievement" Relationship="SessionBornModel.FK_Achievements_AspNetUsers" FromRole="AspNetUser" ToRole="Achievement" />
+          <NavigationProperty Name="Achievements" Relationship="SessionBornModel.FK_Achievements_AspNetUsers" FromRole="AspNetUser" ToRole="Achievement" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -508,16 +509,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Achievement">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="AchievementTypeID" Type="Int32" Nullable="false" />
-          <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AchievementType" Relationship="SessionBornModel.FK_Achievements_AchievementTypes" FromRole="Achievement" ToRole="AchievementType" />
-          <NavigationProperty Name="AspNetUser" Relationship="SessionBornModel.FK_Achievements_AspNetUsers" FromRole="Achievement" ToRole="AspNetUser" />
-        </EntityType>
         <EntityType Name="AchievementType">
           <Key>
             <PropertyRef Name="ID" />
@@ -526,6 +517,17 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Achievements" Relationship="SessionBornModel.FK_Achievements_AchievementTypes" FromRole="AchievementType" ToRole="Achievement" />
+        </EntityType>
+        <EntityType Name="Achievement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AchievementTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AchievementType" Relationship="SessionBornModel.FK_Achievements_AchievementTypes" FromRole="Achievement" ToRole="AchievementType" />
+          <NavigationProperty Name="AspNetUser" Relationship="SessionBornModel.FK_Achievements_AspNetUsers" FromRole="Achievement" ToRole="AspNetUser" />
         </EntityType>
         <Association Name="FK_Achievements_AchievementTypes">
           <End Type="SessionBornModel.AchievementType" Role="AchievementType" Multiplicity="1" />
@@ -541,7 +543,7 @@
         </Association>
         <Association Name="FK_Achievements_AspNetUsers">
           <End Type="SessionBornModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="SessionBornModel.Achievement" Role="Achievement" Multiplicity="0..1" />
+          <End Type="SessionBornModel.Achievement" Role="Achievement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
@@ -551,7 +553,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -651,20 +653,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AchievementTypes">
+            <EntityTypeMapping TypeName="SessionBornModel.AchievementType">
+              <MappingFragment StoreEntitySet="AchievementTypes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Achievements">
             <EntityTypeMapping TypeName="SessionBornModel.Achievement">
               <MappingFragment StoreEntitySet="Achievements">
                 <ScalarProperty Name="AddDate" ColumnName="AddDate" />
                 <ScalarProperty Name="AchievementTypeID" ColumnName="AchievementTypeID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AchievementTypes">
-            <EntityTypeMapping TypeName="SessionBornModel.AchievementType">
-              <MappingFragment StoreEntitySet="AchievementTypes">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

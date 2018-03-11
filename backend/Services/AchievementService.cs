@@ -23,7 +23,8 @@ namespace Services
             achievementRepository.Add(new Entities.Achievement()
             {
                 UserID = userID,
-                AchievementTypeID = (int)achievementType
+                AchievementTypeID = (int)achievementType,
+                AddDate = DateTime.Now
             });
             achievementRepository.SaveChanges();
         }
