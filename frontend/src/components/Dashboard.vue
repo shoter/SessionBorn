@@ -1,6 +1,9 @@
 <template>
   <div id="Dashboard">
-    <h2 class="header">Scenarios</h2>
+
+    <div class="row">
+    <h2 class="header">Scenarios <b-button class="mx-3 py-1" variant="success" size="sm" @click="displayScenarioModal"> Add scenario </b-button></h2>
+    </div>
     <b-card-group columns>
       <b-card  v-for="scenario in scenarios" :key="scenario.id" class="tile"
               v-bind:title="scenario.scenarioName"
@@ -15,6 +18,25 @@
         </div>
       </b-card>
     </b-card-group>
+
+    <b-modal ref="addScenarioModal" title="Add scenario">
+      <div class="form-group">
+        <label for="newScenarioName" >Name</label>
+        <input id="newScenarioName" class="form-control" placeholder="Name"  v-model="newScenario.scenarioName" required autofocus>
+        <label for="newScenarioDesc" >Description</label><br/>
+        <textarea class="form-control" rows="5" id="newScenarioDesc" v-model="newScenario.scenarioDesc"></textarea>
+      </div>
+
+      <div slot="modal-footer" >
+        <b-btn variant="success" size="sm" @click="addScenario">
+          Add
+        </b-btn>
+        <b-btn size="sm" variant="info" @click="cancelScenarioAdd">
+          Cancel
+        </b-btn>
+      </div>
+
+    </b-modal>
   </div>
 </template>
 
@@ -25,24 +47,57 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       scenarios: null,
-      error: null
+      error: null,
+      newScenario: {
+        scenarioName: '',
+        scenarioDesc: ''
+      }
+    }
+  },
+  methods: {
+    addScenario: function () {
+      this.$http.post('http://arrowtotherest.azurewebsites.net/api/Scenario/add', this.newScenario, {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+        }
+      }).then(response => {
+        this.$snotify.success('Scenario added', 'Success')
+        this.newScenario.scenarioDesc = ''
+        this.newScenario.scenarioName = ''
+        this.$refs.addScenarioModal.hide()
+        this.getScenario()
+      }, response => {
+        this.$snotify.error('Please check data: ' + response.error, 'Error')
+        this.error = response.error
+      })
+    },
+    cancelScenarioAdd: function () {
+      this.newScenario.scenarioDesc = ''
+      this.newScenario.scenarioName = ''
+      this.$refs.addScenarioModal.hide()
+    },
+    displayScenarioModal: function () {
+      this.$refs.addScenarioModal.show()
+    },
+    getScenario: function () {
+      /* this.$http.interceptors.get(function (request) {
+        request.headers.set('X-CSRF-TOKEN', this.$cookie.get('skyrim_token'))
+        request.headers.set('Authorization', 'Bearer TOKEN')
+      }) */
+      this.$http.get('http://arrowtotherest.azurewebsites.net/api/Scenario', {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+        }
+      }).then(response => {
+        // get body data
+        this.scenarios = response.body
+      }, response => {
+        this.error = response.error
+      })
     }
   },
   mounted: function () {
-    /* this.$http.interceptors.get(function (request) {
-      request.headers.set('X-CSRF-TOKEN', this.$cookie.get('skyrim_token'))
-      request.headers.set('Authorization', 'Bearer TOKEN')
-    }) */
-    this.$http.get('http://arrowtotherest.azurewebsites.net/api/Scenario', {
-      headers: {
-        Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
-      }
-    }).then(response => {
-      // get body data
-      this.scenarios = response.body
-    }, response => {
-      this.error = response.error
-    })
+    this.getScenario()
   }
 }
 </script>
