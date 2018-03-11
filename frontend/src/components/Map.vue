@@ -43,7 +43,6 @@
     },
     mounted: function () {
       if (this.$route.params.lon != null && this.$route.params.lat != null) {
-        alert('B1')
         let pos = {lat: Number(this.$route.params.lat), lng: Number(this.$route.params.lon)}
         this.markers = [
           {
@@ -53,17 +52,40 @@
           }]
         this.center = pos
       } else {
-        this.markers = [{
-          position: {lat: 10.0, lng: 10.0},
-          title: 'Kolos',
-          desc: 'dsadsadsadsad sdsad saesfd sdfs',
-          messageVisible: true
-        }, {
-          position: {lat: 11.0, lng: 11.0},
-          title: 'Something',
-          desc: 'dsadsadsadsad sdsad saesfd sdfs',
-          messageVisible: false
-        }]
+        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Sidebar', {
+          headers: {
+            Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+          }
+        }).then(response => {
+          this.markers = []
+          let self = this
+          let res = [{
+            'name': 'sample string 2',
+            'type': 'sample string 4',
+            'Latitude': 1.0,
+            'Longitude': 1.0,
+            'completed': false,
+            'description': 'sample string 8',
+            'points': 9
+          }]
+          res.forEach(function (quest) {
+            if (quest.Latitude != null && quest.Longitude != null && quest.completed === false) {
+              console.log(self)
+              self.markers.push({
+                position: {lat: quest.Latitude, lng: quest.Longitude},
+                title: quest.name,
+                desc: quest.description,
+                messageVisible: true
+              })
+              if (self.markers.length > 0) {
+                self.center = self.markers[0].position
+              }
+            }
+          })
+        }, response => {
+          this.$snotify.error('Unable to download map data', 'Error')
+          this.error = response.error
+        })
       }
     }
   }
