@@ -29,13 +29,6 @@ namespace Rest.Controllers
         {
             Quest quest = questRepository.GetById(id);
 
-            bool isquiz = false;
-
-            if (quest.QuestType.ID == (int)QuestTypeEnum.Quiz)
-            {
-                isquiz = true;
-            }
-
             return new QuestGetModels
             {
                 id = quest.ID,
@@ -46,11 +39,10 @@ namespace Rest.Controllers
                 doneDate = quest.DoneDate,
                 Latitude = quest.Latitude,
                 Longitude = quest.Longitude,
-                isQuiz = isquiz,
+                isQuiz = quest.QuestTypeID == (int)QuestTypeEnum.Quiz,
                 completed = quest.Completed,
                 description = quest.Description,
                 points = quest.Points
-
             };
         }
 
@@ -68,10 +60,10 @@ namespace Rest.Controllers
         public IEnumerable<QuestGetModels> GetList(int id)
         {
 
-            Quest quest = questRepository.GetById(id);
+            var quests = questRepository.GetScenarioQuests(id);
 
-
-            yield return new QuestGetModels
+            return quests.Select(quest =>
+            new QuestGetModels()
             {
                 id = quest.ID,
                 name = quest.Name,
@@ -83,8 +75,9 @@ namespace Rest.Controllers
                 Longitude = quest.Longitude,
                 completed = quest.Completed,
                 description = quest.Description,
-                points = quest.Points
-            };
+                points = quest.Points,
+                isQuiz = quest.QuestTypeID == (int)QuestTypeEnum.Quiz
+            }).ToList();
         }
 
         [Route("api/Quest/{questID:int}/complete")]

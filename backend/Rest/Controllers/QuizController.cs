@@ -78,7 +78,7 @@ namespace Rest.Controllers
         public void AnswerQuiz(QuizAnswerViewModel vm)
         {
             var quiz = quizRepository.GetById(vm.QuizID);
-            quizService.AnswerQuiz(quiz, vm.Answers.Where(a => a.IsCorrect).Count());
+            quizService.AnswerQuiz(quiz, vm.Score);
         }
     }
 }

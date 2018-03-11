@@ -62,6 +62,7 @@ namespace Rest
             kernel.Bind<IQuizService>().To<QuizService>().InRequestScope();
             kernel.Bind<IAchievementRepository>().To<AchievementRepository>().InRequestScope();
             kernel.Bind<IAchievementService>().To<AchievementService>().InRequestScope();
+            kernel.Bind<IMotorollaService>().To<MotorollaService>().InRequestScope();
         }
     }
 }

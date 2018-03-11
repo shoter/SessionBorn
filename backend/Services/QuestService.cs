@@ -7,17 +7,76 @@ using Entities.Repositories;
 using Entities;
 using Common.Results;
 using Entities.Enums;
+using Services.DTOs.Motorllas;
+using Common.Transactions;
 
 namespace Services
 {
     public class QuestService : IQuestService
     {
         private readonly IQuestRepository questRepository;
+        private readonly IMotorollaService motorollaService;
+        private readonly ITransactionScopeProvider transactionScopeProvider;
 
-        public QuestService(IQuestRepository questRepository)
+        public QuestService(IQuestRepository questRepository, IMotorollaService motorollaService, ITransactionScopeProvider transactionScopeProvider)
         {
-            this.questRepository = questRepository;           
+            this.questRepository = questRepository;
+            this.motorollaService = motorollaService;
+            this.transactionScopeProvider = transactionScopeProvider;
         }
+
+        public void CreateMotorollaMarker(Quest quest)
+        {
+            var model = new MotorollaSimpleModel()
+            {
+                metaHeader = new MotorollaSimpleModelMetaHeader()
+                {
+                    metaTimeStamp = toStringDate(DateTime.Now),
+                    metaEventTypeLabel = quest.Name
+                },
+                eventHeader = new MotorollaSimpleModelMainHeader()
+                {
+                    detailedDescription = quest.Description,
+                    label = quest.Name,
+                    id = $"mot-{quest.ID}",
+                    icon = new MotorllaSimpleModelIcon() { url = "MsiIcon://" + getIconForQuest(quest) },
+                    location = new MotorllaSimpleModelLocation()
+                    {
+                        latitude = (double)quest.Latitude.Value,
+                        longitude = (double)quest.Longitude.Value
+                    },
+                    priority = "medium",
+                    timeStamp = toStringDate(DateTime.Now),
+                    expirationTimeStamp = toStringDate(quest.DueDate)
+                }
+                
+            };
+
+            motorollaService.DoRequest(model);
+        }
+
+        private static string toStringDate(DateTime time)
+        {
+            return String.Format("{0:yyyy-MM-ddTHH:mm:ss.fffZ}", time);
+        }
+
+        private static string getIconForQuest(Quest quest)
+        {
+            switch ((QuestTypeEnum)quest.QuestTypeID)
+            {
+                //  case QuestTypeEnum.Meeting:
+                case QuestTypeEnum.Test:
+                    return "ic_document";
+                case QuestTypeEnum.Exam:
+                    return "ic_warrant_high";
+                case QuestTypeEnum.Meeting:
+                    return "ic_generic";
+                case QuestTypeEnum.Quiz:
+                    return "ic_incident_pending";
+            }
+            throw new NotImplementedException();
+        }
+
 
         public Quest CreateQuest(string name, string desc,
                                 int questType, int scenarioID, System.DateTime dueDate,
@@ -25,24 +84,35 @@ namespace Services
                                 Nullable<decimal> longitude = null )
 
         {
-            var quest = new Quest()
+            using(var trs = transactionScopeProvider.CreateTransactionScope())
             {
-                Name = name,
-                Description = desc,
-                Completed = false,
-                QuestTypeID = questType,
-                ScenarioID = scenarioID,
-                DueDate = dueDate,
-                Latitude = latitude,
-                Longitude = longitude,
-                Points = points
-            };
+                var quest = new Quest()
+                {
+                    Name = name,
+                    Description = desc,
+                    Completed = false,
+                    QuestTypeID = questType,
+                    ScenarioID = scenarioID,
+                    DueDate = dueDate,
+                    Latitude = latitude,
+                    Longitude = longitude,
+                    Points = points
+                };
 
-            
-            questRepository.Add(quest);
-            questRepository.SaveChanges();
-            return quest;
+                TryToDoMotorllaMarker(quest);
 
+                questRepository.Add(quest);
+                questRepository.SaveChanges();
+                trs.Complete();
+                return quest;
+            }
+
+        }
+
+        public void TryToDoMotorllaMarker(Quest quest)
+        {
+            if (quest.Latitude.HasValue && quest.Longitude.HasValue)
+                CreateMotorollaMarker(quest);
         }
 
         public void RemoveQuest(int questID)
