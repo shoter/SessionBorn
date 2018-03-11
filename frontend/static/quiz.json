@@ -1,0 +1,38 @@
+{
+  "1":{
+    "title" : "Quiz z Fizyki kwantowej",
+    "description" : "Jak zwykle proste pytanka z fizyki",
+    "questions" : [
+      {
+        "question" : "e =",
+        "answer" : "mc^2",
+        "variants" : [
+          "mc^2",
+          "e",
+          "ih"
+        ]
+      },
+      {
+        "question" : "a =",
+        "answer" : "dv/dt",
+        "variants" : [
+          "mc^2",
+          "e",
+          "ih",
+          "dv/dt"
+        ]
+      },
+      {
+        "question" : "ih to",
+        "answer" : "nwm",
+        "variants" : [
+          "mc^2",
+          "e",
+          "nwm"
+        ]
+      }
+    ]
+  }
+
+
+}

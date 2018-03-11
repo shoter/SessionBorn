@@ -1,0 +1,24 @@
+@import url(https://fonts.googleapis.com/css?family=Gudea:400,700);
+
+@font-face {
+  font-family: 'DarkShadow';
+  src: url('/static/DarkXShadow.ttf') format('truetype');
+}
+
+$main-bg-color: #ffffff;
+$main-sidebar-color: #343a40;
+$main-dark: #343a40;
+$text-color: #e0e0e0;
+$border-color: #e0e0e0;
+$menu-secondary: darkgray;
+$main-border: 3px $border-color solid;
+
+
+body {
+  color: $text-color;
+}
+
+a, a:hover, a:focus {
+  color: $text-color;
+  text-decoration: none;
+}

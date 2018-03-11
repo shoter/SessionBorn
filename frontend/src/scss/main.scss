@@ -1,0 +1,19 @@
+@import "variables";
+
+#app {
+  font-family: 'Gudea', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $main-dark;
+  height: 100vh;
+  .main {
+    padding-top: 90px;
+    background: #a0e27a; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #a0e27a 0%, #207cca 49%, #1e5799 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #a0e27a 0%, #207cca 49%,#1e5799 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #a0e27a 0%,#207cca 49%,#1e5799 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0e27a', endColorstr='#1e5799',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    min-height: 100vh;
+  }
+}
+

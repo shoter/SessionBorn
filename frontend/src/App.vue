@@ -1,17 +1,53 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+
+    <template v-if="authFlag">
+      <navbar></navbar>
+      <div class="row">
+        <sidebar></sidebar>
+        <div class="col-sm-10 main">
+          <router-view></router-view>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <login-form></login-form>
+    </template>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
+  import NavBar from './components/NavBar'
+  import SideBar from './components/Sidebar'
+  import LoginForm from './components/LoginForm'
+  import { EventBus } from './bus/event-bus.js'
+
+  export default {
+    name: 'app',
+    components: {
+      'navbar': NavBar,
+      'sidebar': SideBar,
+      'login-form': LoginForm
+    },
+    data () {
+      // this.$refs.toastr.Add('ERRROR MESSAGE')
+      // this.$refs.toastr.Add('SUCCESS MESSAGE')
+      return {
+        authFlag: false
+      }
+    },
+    mounted: function () {
+      let cookie = this.$cookie.get('skyrim_token')
+      EventBus.$on('login', () => { this.authFlag = true })
+      if (cookie != null) {
+        this.authFlag = true
+      }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import 'main.scss';
+  @import 'scss/main.scss';
 </style>
 
