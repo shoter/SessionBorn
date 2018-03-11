@@ -37,7 +37,6 @@
           <b-form-select id="newQuestType" name="newQuestType" v-model="newQuest.type" :options="questType" class="form-control"/>
           <label for="newQuestDate" >Due date</label>
           <input type="datetime-local" id="newQuestDate" class="form-control" placeholder="Due date"  v-model="timestamp" required autofocus>
-          {{newQuest.dueDate}}
           <label for="newQuestPoints" >Points</label>
           <input type="number" id="newQuestPoints" min="0" class="form-control" placeholder="ECTS points"  v-model="newQuest.points" required autofocus>
           <div class="row">
