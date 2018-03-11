@@ -8,7 +8,7 @@
         <div class="col-4 user-lvl"> {{ user.lvl }} LVL</div>
       </div>
 
-      <div class="text-center"><icon name="star-o"></icon> Points: {{ user.points }}</div>
+      <div class="text-center"><icon name="database"></icon> ECTS: {{ user.points }}</div>
       <div class="progress-bar">
         <div class="progress-bar-fill" :style="{ 'width': user.levelPercentage*100 + '%'  }"></div>
       </div>

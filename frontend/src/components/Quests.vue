@@ -1,6 +1,6 @@
 <template>
     <div class="scenario-detail">
-      <h2 class="header">Scenario no. {{ $route.params.id }}</h2>
+      <div class="row"><h2 class="header">Scenario no. {{ $route.params.id }}</h2> <div class="mx-3 py-1"><b-button v-b-modal.addQuestModal size="sm" variant="success">Add new quest</b-button></div></div>
       <b-card-group columns>
         <b-card  v-for="quest in quests" :key="quest.id" class="tile"
                  v-bind:title="quest.name"
@@ -25,7 +25,9 @@
           </b-button-group>
         </b-card>
       </b-card-group>
-      {{ error }}
+      <b-modal id="addQuestModal" title="Add new quest">
+        <p class="my-4">Hello from modal!</p>
+      </b-modal>
     </div>
 </template>
 
@@ -36,7 +38,17 @@
         return {
           msg: 'Welcome to Your Vue.js App',
           quests: null,
-          error: null
+          error: null,
+          newQuest: {
+            name: '',
+            scenarioId: this.$route.params.id,
+            type: '',
+            dueDate: Date.now(),
+            Latitude: 0.0,
+            Longitude: 0.0,
+            description: '',
+            points: 0
+          }
         }
       },
       methods: {

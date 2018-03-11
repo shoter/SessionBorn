@@ -21,6 +21,7 @@
   import NavBar from './components/NavBar'
   import SideBar from './components/Sidebar'
   import LoginForm from './components/LoginForm'
+  import { EventBus } from './bus/event-bus.js'
 
   export default {
     name: 'app',
@@ -38,6 +39,7 @@
     },
     mounted: function () {
       let cookie = this.$cookie.get('skyrim_token')
+      EventBus.$on('login', () => { this.authFlag = true })
       if (cookie != null) {
         this.authFlag = true
       }
