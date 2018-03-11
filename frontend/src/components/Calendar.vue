@@ -9,26 +9,30 @@
       name: 'calendar',
       data () {
         return {
-          events: [
-            {
-              title: 'event1',
-              start: '2018-01-01'
-            },
-            {
-              title: 'event2',
-              start: '2018-01-05',
-              end: '2018-01-07'
-            },
-            {
-              title: 'event3',
-              start: '2018-01-09T12:30:00',
-              allDay: false
-            }
-          ],
-          config: {
-            weekends: false
-          }
+          events: []
         }
+      },
+      mounted: function () {
+        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Quest', {
+          headers: {
+            Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+          }
+        }).then(response => {
+          // get body data
+          console.log(response.body)
+          let self = this
+          this.events = []
+          response.body.forEach(function (question) {
+            self.events.push({
+              title: question.name,
+              start: question.date,
+              description: question.description,
+              allDay: false
+            })
+          })
+        }, response => {
+          this.error = response.status
+        })
       }
     }
 </script>
