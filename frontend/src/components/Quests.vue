@@ -126,7 +126,7 @@
         return lan == null || lon == null
       },
       mapLink: function (lan, lon, name) {
-        return '/#/map/' + lan + '/' + lon + '/' + name.replace(' ', '%20')
+        return '/#/map/' + lon + '/' + lan + '/' + name.replace(' ', '%20')
       },
       sendQuest: function () {
         this.newQuest.dueDate = this.newQuest.dueDate.toLocaleString()

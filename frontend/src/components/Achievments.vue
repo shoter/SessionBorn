@@ -1,6 +1,6 @@
 <template>
     <div class="scenario-detail">
-      <h2 class="header">Achievments</h2>
+      <h2 class="header">Achievements</h2>
       <b-card-group columns>
         <b-card  v-for="achievment in achievments" :key="achievment.achievementName" class="tile"
                  v-bind:title="achievment.achievementName">
