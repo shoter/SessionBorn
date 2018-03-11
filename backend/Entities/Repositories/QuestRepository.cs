@@ -21,6 +21,7 @@ namespace Entities.Repositories
         {
             return SingleOrDefault(x => x.ID == questID);
         }
+        
 
      }
 }

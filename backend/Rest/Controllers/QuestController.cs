@@ -55,13 +55,32 @@ namespace Rest.Controllers
             
         }
 
+
+        [Route("api/Quest/")]
+        [Authorize]
+        public IEnumerable<QuestDateModel> getAllQuests()
+        {
+            var user = GetCurrentUser();
+            var quests = questRepository.GetAll().ToList();
+
+            return quests.Select(quest =>
+            new QuestDateModel()
+            {
+                name = quest.Name,
+                date = quest.DueDate,
+                description = quest.Description
+                
+            }).ToList();
+
+        }
+
         [Route("api/Scenario/{id}/Quests")]
         [Authorize]
         public IEnumerable<QuestGetModels> GetList(int id)
         {
 
             var quests = questRepository.GetScenarioQuests(id);
-
+            
             return quests.Select(quest =>
             new QuestGetModels()
             {
