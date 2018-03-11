@@ -12,13 +12,20 @@
           </div>
 
           <b-button-group>
-          <b-button v-b-modal="'reward' + reward.RewardID" variant="success" size="sm" @click="getReward(reward.RewardID)">Get reward</b-button>
+          <b-button variant="success" size="sm" @click="getRewardModal(reward.RewardID)">Get reward</b-button>
           </b-button-group>
-          <b-modal v-bind:id="'reward' + reward.RewardID" v-bind:title="reward.Name">
-            <p class="my-4">Do you wanna get your reward?</p>
-          </b-modal>
         </b-card>
       </b-card-group>
+      <b-modal
+        hide-footer
+        ref="rewardModal"
+        id="RewardModal"
+        v-bind:title="rewardNow.name"
+        @hidden="clearModal()"
+        class="reward-dialog">
+        <p class="my-4">Do you wanna get your reward?</p>
+        <b-btn class="mt-3" variant="success" block @click="sendReward(rewardNow.id)" v-bind:disabled="!rewardNow.canBuy">Acquire reward</b-btn>
+      </b-modal>
     </div>
 </template>
 
@@ -31,12 +38,46 @@
           rewards: null,
           user_points: 30,
           error: null,
-          canBuy: null
+          rewardNow: {
+            id: 0,
+            name: '',
+            canBuy: false
+          }
         }
       },
       methods: {
-        getReward: function (id) {
-          alert('Reward' + id)
+        getRewardModal: function (id) {
+          this.$http.get('http://arrowtotherest.azurewebsites.net/api/Reward/CanBuy?rewardID=' + id, {
+            headers: {
+              Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+            }
+          }).then(response => {
+            if (response.body.isSuccess) {
+              this.rewardNow.id = id
+              this.rewardNow.name = this.rewards.find((elem) => elem.RewardID === id).Name
+              this.rewardNow.canBuy = response.body.isSuccess
+            }
+          }, response => {
+            this.error = response.error
+          })
+          this.$refs.rewardModal.show()
+        },
+        sendReward: function (id) {
+          this.$http.post('http://arrowtotherest.azurewebsites.net/api/Reward/BuyReward?rewardID=' + id, {}, {
+            headers: {
+              Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+            }
+          }).then(response => {
+            this.$refs.rewardModal.hide()
+            //TODO: toastr - success, login - toastr success, errors also
+          }, response => {
+            this.error = response.error
+          })
+        },
+        clearModal: function () {
+          this.rewardNow.id = 0
+          this.rewardNow.name = ''
+          this.rewardNow.canBuy = false
         }
       },
       mounted: function () {
@@ -64,7 +105,7 @@
       color: #e22727;
     }
   }
-  .modal-content {
+  .reward-dialog {
     color: $main-dark;
   }
 
