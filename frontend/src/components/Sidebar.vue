@@ -44,7 +44,7 @@
           { link: '/#/rewards', name: 'Awards', icon: 'star' },
           { link: '/#/map', name: 'Map', icon: 'map' },
           { link: '/#/stats', name: 'Statistics', icon: 'area-chart' },
-          { link: '/#/achievments', name: 'Achievments', icon: 'diamond' }]
+          { link: '/#/achievments', name: 'Achievements', icon: 'diamond' }]
       }
     },
     methods: {
