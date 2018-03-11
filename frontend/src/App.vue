@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <template v-if="authFlag">
       <navbar></navbar>
       <div class="row">
@@ -12,6 +13,7 @@
     <template v-else>
       <login-form></login-form>
     </template>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
@@ -20,7 +22,7 @@
   import SideBar from './components/Sidebar'
   import LoginForm from './components/LoginForm'
 
-export default {
+  export default {
     name: 'app',
     components: {
       'navbar': NavBar,
@@ -28,6 +30,8 @@ export default {
       'login-form': LoginForm
     },
     data () {
+      // this.$refs.toastr.Add('ERRROR MESSAGE')
+      // this.$refs.toastr.Add('SUCCESS MESSAGE')
       return {
         authFlag: false
       }

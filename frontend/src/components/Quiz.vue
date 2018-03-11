@@ -41,7 +41,12 @@
 
 <script>
     import NavForm from 'bootstrap-vue/es/components/nav/nav-form'
-
+    function shuffleArray (array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]
+      }
+    }
     export default {
       components: {NavForm},
       name: 'quiz',
@@ -54,9 +59,15 @@
         }
       },
       mounted: function () {
-        this.$http.get('http://localhost:8080/static/quiz.json').then(response => {
+        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Quiz?quizID=' + this.$route.params.id, {
+          headers: {
+            Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+          }
+        }).then(response => {
           // get body data
-          this.quiz = response.body[1]
+          console.log(response.body)
+          this.quiz = response.body
+          this.quiz.questions.forEach(function (question) { shuffleArray(question.variants) })
         }, response => {
           this.error = response.error
         })

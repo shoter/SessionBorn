@@ -7,6 +7,10 @@ import Rewards from '@/components/Rewards'
 import Achievments from '@/components/Achievments'
 import Quiz from '@/components/Quiz'
 
+// import Toastr
+// import toastr less file: need webpack less-loader
+// Register vue component
+
 Vue.use(Router)
 
 export default new Router({
