@@ -3,7 +3,8 @@
       <h2 class="header">Achievements</h2>
       <b-card-group columns>
         <b-card  v-for="achievment in achievments" :key="achievment.achievementName" class="tile"
-                 v-bind:title="achievment.achievementName">
+                 v-bind:title="achievment.achievementName"
+                 v-bind:sub-title="achievment.description">
           <div slot="header"
               class="mb-0 row">
             <div class="col-6"><icon name="diamond"></icon></div>
