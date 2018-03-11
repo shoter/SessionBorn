@@ -1,6 +1,7 @@
 <template>
   <div id="Dashboard">
     <h2 class="header">Scenarios</h2>
+    <b-btn variant="success" size="sm" @click="displayScenarioModal"> Add scenario </b-btn>
     <b-card-group columns>
       <b-card  v-for="scenario in scenarios" :key="scenario.id" class="tile"
               v-bind:title="scenario.scenarioName"
@@ -15,6 +16,25 @@
         </div>
       </b-card>
     </b-card-group>
+
+    <b-modal ref="addScenarioModal" title="Add scenario">
+      <div class="form-group">
+        <label for="newScenarioName" >Name</label>
+        <input id="newScenarioName" class="form-control" placeholder="Name"  v-model="newScenario.scenarioName" required autofocus>
+        <label for="newScenarioDesc" >Description</label><br/>
+        <textarea class="form-control" rows="5" id="newScenarioDesc" v-model="newScenario.scenarioDesc"></textarea>
+      </div>
+
+      <div slot="modal-footer" >
+        <b-btn variant="success" size="sm" @click="addScenario">
+          Add
+        </b-btn>
+        <b-btn size="sm" variant="info" @click="cancelScenarioAdd">
+          Cancel
+        </b-btn>
+      </div>
+
+    </b-modal>
   </div>
 </template>
 
@@ -25,7 +45,37 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       scenarios: null,
-      error: null
+      error: null,
+      newScenario: {
+        scenarioName: '',
+        scenarioDesc: ''
+      }
+    }
+  },
+  methods: {
+    addScenario: function () {
+      this.$http.post('http://arrowtotherest.azurewebsites.net/api/Scenario/add', this.newScenario, {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+        }
+      }).then(response => {
+        this.$refs.rewardModal.hide()
+        this.$snotify.success('Scenario added', 'Success')
+        this.newScenario.scenarioDesc = ''
+        this.newScenario.scenarioName = ''
+        this.$refs.addScenarioModal.hide()
+      }, response => {
+        this.$snotify.error('Please check data: ' + response.error, 'Error')
+        this.error = response.error
+      })
+    },
+    cancelScenarioAdd: function () {
+      this.newScenario.scenarioDesc = ''
+      this.newScenario.scenarioName = ''
+      this.$refs.addScenarioModal.hide()
+    },
+    displayScenarioModal: function () {
+      this.$refs.addScenarioModal.show()
     }
   },
   mounted: function () {
