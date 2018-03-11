@@ -40,11 +40,11 @@
           lvl: 0,
           exp: 0 },
         menu: [
-            { link: '/', name: 'Dashboard', icon: 'home' },
-            { link: '/#/rewards', name: 'Awards', icon: 'star' },
-            { link: '/#/map', name: 'Map', icon: 'map' },
-            { link: '/#/stats', name: 'Statistics', icon: 'area-chart' }
-        ]
+          { link: '/', name: 'Dashboard', icon: 'home' },
+          { link: '/#/rewards', name: 'Awards', icon: 'star' },
+          { link: '/#/map', name: 'Map', icon: 'map' },
+          { link: '/#/stats', name: 'Statistics', icon: 'area-chart' },
+          { link: '/#/achievments', name: 'Achievments', icon: 'diamond' }]
       }
     },
     methods: {

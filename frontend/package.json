@@ -14,8 +14,10 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "awesome-charts": "^1.0.0",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "latest",
+    "chart.js": "^2.7.2",
     "popper.js": "^1.12.9",
     "vue": "^2.5.2",
     "vue-awesome": "^2.3.5",
