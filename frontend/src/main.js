@@ -11,7 +11,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-awesome/icons'
 import 'vue-snotify/styles/material.css' // or dark.css or simple.css
 import Snotify from 'vue-snotify'
+import FullCalendar from 'vue-full-calendar'
 
+Vue.use(FullCalendar)
 Vue.use(Snotify)
 Vue.use(VueResource)
 Vue.use(VueCookie)
