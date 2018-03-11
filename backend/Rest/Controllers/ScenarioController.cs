@@ -17,7 +17,6 @@ namespace Rest.Controllers
     {
         private readonly IScenarioRepository scenarioRepository;
         private readonly ScenarioServices scenarioServices;
-        private readonly IUserRepository userRepository;
   
         public ScenarioController(ScenarioRepository scenarioRepository, ScenarioServices scenarioServices)
         {
@@ -45,10 +44,10 @@ namespace Rest.Controllers
         [Authorize]
         public IEnumerable<ScenarioGetModel> GetList()
         {
-            var user = userRepository.GetUser(User.Identity.Name);
-            foreach (Scenario scenario in scenarioRepository.GetUsersScenarios(user.Id))
-            {
-                yield return new ScenarioGetModel
+            var user = GetCurrentUser();
+
+            return scenarioRepository.GetUsersScenarios(user.Id).Select(scenario =>
+                new ScenarioGetModel()
                 {
                     id = scenario.ID,
                     scenarioName = scenario.Name,
@@ -56,15 +55,15 @@ namespace Rest.Controllers
                     userId = scenario.UserID,
                     completed = scenarioServices.isCompleted(scenario.ID),
                     percentDone = scenarioServices.CalculateCompletion(scenario.ID)
-                };
-            }
+                });
+          
         }
 
         [Authorize]
         [Route("api/Scenario/add")]
         public void Post(ScenarioAddModel scenario)
         {
-            var user = userRepository.GetUser(User.Identity.Name);
+            var user = GetCurrentUser();
 
             scenarioServices.CreateScenario(scenario.scenarioName, scenario.scenarioDesc, user.Id);
         }

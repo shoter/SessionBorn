@@ -47,8 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AchievementService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DTOs\QuizNewQuestion.cs" />
+    <Compile Include="IAchievementService.cs" />
     <Compile Include="IQuestService.cs" />
     <Compile Include="IQuizService.cs" />
     <Compile Include="IRewardService.cs" />

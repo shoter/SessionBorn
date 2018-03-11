@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\DescriptionAttribute.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="EncoDeco\IDecoder.cs" />
     <Compile Include="EncoDeco\IEncoder.cs" />

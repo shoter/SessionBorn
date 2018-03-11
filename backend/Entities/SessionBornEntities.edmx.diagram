@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e332ec7c93b44fb792034328ab741d9b" Name="Diagram1" ZoomLevel="83">
-        <EntityTypeShape EntityType="SessionBornModel.QuestType" Width="1.5" PointX="5.625" PointY="6" />
         <EntityTypeShape EntityType="SessionBornModel.AspNetUser" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="SessionBornModel.UserInfo" Width="1.5" PointX="3" PointY="8.5" />
         <AssociationConnector Association="SessionBornModel.FK_UserInfos_AspNetUsers" />
@@ -17,9 +16,14 @@
         <EntityTypeShape EntityType="SessionBornModel.Quest" Width="1.5" PointX="7.875" PointY="8" />
         <EntityTypeShape EntityType="SessionBornModel.Scenario" Width="1.5" PointX="3" PointY="11.625" />
         <AssociationConnector Association="SessionBornModel.FK_Scenarios_AspNetUsers" />
-        <AssociationConnector Association="SessionBornModel.FK_Quests_QuestTypes" />
         <AssociationConnector Association="SessionBornModel.FK_Quests_Scenarios" />
         <AssociationConnector Association="SessionBornModel.FK_Quizes_Quests" />
+        <EntityTypeShape EntityType="SessionBornModel.QuestType" Width="1.5" PointX="3.75" PointY="4.875" />
+        <AssociationConnector Association="SessionBornModel.FK_Quests_QuestTypes" />
+        <EntityTypeShape EntityType="SessionBornModel.Achievement" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="SessionBornModel.AchievementType" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="SessionBornModel.FK_Achievements_AchievementTypes" />
+        <AssociationConnector Association="SessionBornModel.FK_Achievements_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

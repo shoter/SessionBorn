@@ -15,6 +15,9 @@ namespace ProjectSpecific.Initializers
         public static void Init()
         {
             new Enumator<QuestType, QuestTypeEnum, SessionBornEntities>().CreateNewIfAble();
+            new Enumator<AchievementType, AchievementTypeEnum, SessionBornEntities>().CreateNewIfAble();
+            
+
         }
     }
 }

@@ -431,9 +431,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AchievementController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DamianTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\QuestController.cs" />
     <Compile Include="Controllers\RewardController.cs" />
@@ -446,7 +448,9 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Achievements\AchievementViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Locations\LocationViewModel.cs" />
     <Compile Include="Models\Quizes\CreateQuizViewModel.cs" />
     <Compile Include="Models\QuestModels.cs" />
     <Compile Include="Models\Quizes\QuizAnswerItemViewModel.cs" />

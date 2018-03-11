@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
+using Common.Results;
 
 namespace Services
 {
@@ -13,5 +14,9 @@ namespace Services
                                 int questType, int scenarioID, System.DateTime dueDate,
                                 int points, Nullable<decimal> latitude = null,
                                 Nullable<decimal> longitude = null);
+
+        MethodResult CanCompleteQuest(Quest quest, AspNetUser user);
+
+        void CompleteQuest(Quest quest, AspNetUser user);
     }
 }

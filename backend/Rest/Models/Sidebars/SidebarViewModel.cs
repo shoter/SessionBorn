@@ -20,5 +20,7 @@ namespace Rest.Models.Sidebars
         public int NextLevelExperience { get; set; }
         [JsonProperty(PropertyName = "levelPercentage")]
         public double LevelPercentage => (double)Exp / (double)NextLevelExperience;
+        [JsonProperty(PropertyName = "points")]
+        public int Points { get; set; }
     }
 }

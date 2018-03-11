@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities;
 using Entities.Repositories;
+using Entities.Enums;
 
 namespace Services
 {
@@ -58,9 +59,15 @@ namespace Services
                 points = points + q.Points;
                 if (q.Completed)
                 {
-                    pointsGained = pointsGained + q.Points;
+                    if (q.QuestTypeID == (int)QuestTypeEnum.Quiz)
+                        pointsGained += q.Quize.CollectedPoints ?? 0; 
+                    else
+                        pointsGained += + q.Points;
                 }
             }
+            if (points == 0)
+                return 0m;
+
             return (pointsGained / points)*100;
         }
 

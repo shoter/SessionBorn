@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Entities.Enums;
 using Entities.Repositories;
 using Services.DTOs;
 using System;
@@ -12,9 +13,11 @@ namespace Services
     public class QuizService : IQuizService
     {
         private readonly IQuizRepository quizRepository;
-        public QuizService(IQuizRepository quizRepository)
+        private readonly IAchievementService achievementService;
+        public QuizService(IQuizRepository quizRepository, IAchievementService achievementService)
         {
             this.quizRepository = quizRepository;
+            this.achievementService = achievementService;
         }
 
 
@@ -47,6 +50,12 @@ namespace Services
             quiz.CollectedPoints = points;
             quiz.Quest.Completed = true;
             quiz.Quest.DoneDate = DateTime.Now;
+            achievementService.TryToGiveAchievement(quiz.Quest.Scenario.UserID, AchievementTypeEnum.FirstCompletedQuiz);
+            if(quiz.CollectedPoints == quiz.Quest.Points)
+                achievementService.TryToGiveAchievement(quiz.Quest.Scenario.UserID, AchievementTypeEnum.FirstCompletedQuest);
+            var userInfo = quiz.Quest.Scenario.AspNetUser.UserInfo;
+            userInfo.Points += points;
+            userInfo.Experience += points;
             quizRepository.SaveChanges();
         }
     }

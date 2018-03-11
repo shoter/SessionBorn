@@ -12,22 +12,19 @@ namespace Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Quest
+    public partial class AchievementType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AchievementType()
+        {
+            this.Achievements = new HashSet<Achievement>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool Completed { get; set; }
-        public int QuestTypeID { get; set; }
-        public int ScenarioID { get; set; }
-        public System.DateTime DueDate { get; set; }
-        public Nullable<System.DateTime> DoneDate { get; set; }
-        public Nullable<decimal> Latitude { get; set; }
-        public Nullable<decimal> Longitude { get; set; }
-        public int Points { get; set; }
     
-        public virtual Scenario Scenario { get; set; }
-        public virtual Quize Quize { get; set; }
-        public virtual QuestType QuestType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Achievement> Achievements { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Common.Results;
 using Entities;
 using Entities.Repositories;
 using Common.Transactions;
+using Entities.Enums;
 
 namespace Services
 {
@@ -14,14 +15,18 @@ namespace Services
     {
         private readonly IRewardRepository rewardRepository;
         private readonly ITransactionScopeProvider transactionScopeProvider;
-        public RewardService(IRewardRepository rewardRepository, ITransactionScopeProvider transactionScopeProvider)
+        private readonly IAchievementService achievementService;
+        public RewardService(IRewardRepository rewardRepository, ITransactionScopeProvider transactionScopeProvider, IAchievementService achievementService)
         {
             this.rewardRepository = rewardRepository;
             this.transactionScopeProvider = transactionScopeProvider;
+            this.achievementService = achievementService;
         }
         public void BuyReward(Reward reward, AspNetUser user)
         {
             user.UserInfo.Points -= reward.Cost;
+            achievementService.TryToGiveAchievement(user.Id, AchievementTypeEnum.FirstReward);
+            rewardRepository.SaveChanges();
         }
 
         public MethodResult CanBuyReward(Reward reward, AspNetUser user)
@@ -35,7 +40,7 @@ namespace Services
             if (reward.UserID != user.Id)
                 return new MethodResult("It is not your reward!");
 
-            if (reward.Cost < user.UserInfo.Points)
+            if (reward.Cost > user.UserInfo.Points)
                 return new MethodResult("You do not have enough points!");
 
             return MethodResult.Success;

@@ -14,6 +14,7 @@ using Services;
 using Ninject.Web.Mvc;
 using Entities;
 using Common.Transactions;
+using ProjectSpecific.Initializers;
 
 namespace Rest
 {
@@ -28,6 +29,8 @@ namespace Rest
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+            EnumatorInitializer.Init();
+            AchievementAddonsInitializer.Init();
         }
 
         protected override IKernel CreateKernel()
@@ -57,6 +60,8 @@ namespace Rest
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             kernel.Bind<ITransactionScopeProvider>().To<StandardTransactionScopeProvider>().InRequestScope();
             kernel.Bind<IQuizService>().To<QuizService>().InRequestScope();
+            kernel.Bind<IAchievementRepository>().To<AchievementRepository>().InRequestScope();
+            kernel.Bind<IAchievementService>().To<AchievementService>().InRequestScope();
         }
     }
 }

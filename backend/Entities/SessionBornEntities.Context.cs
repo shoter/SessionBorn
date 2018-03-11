@@ -25,7 +25,6 @@ namespace Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<QuestType> QuestTypes { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
         public virtual DbSet<Reward> Rewards { get; set; }
@@ -33,5 +32,8 @@ namespace Entities
         public virtual DbSet<Quize> Quizes { get; set; }
         public virtual DbSet<Quest> Quests { get; set; }
         public virtual DbSet<Scenario> Scenarios { get; set; }
+        public virtual DbSet<QuestType> QuestTypes { get; set; }
+        public virtual DbSet<Achievement> Achievements { get; set; }
+        public virtual DbSet<AchievementType> AchievementTypes { get; set; }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities.Repositories;
 using Entities;
+using Common.Results;
+using Entities.Enums;
 
 namespace Services
 {
@@ -72,8 +74,24 @@ namespace Services
       
         }
 
+        public MethodResult CanCompleteQuest(Quest quest, AspNetUser user)
+        {
+            if (quest.Scenario.UserID != user.Id)
+                return new MethodResult("Quest does not belong to you!");
 
+            return MethodResult.Success;
+        }
 
+        public void CompleteQuest(Quest quest, AspNetUser user)
+        {
+            if (quest.Completed == false)
+            {
+                user.UserInfo.Points += quest.Points;
+                user.UserInfo.Experience += quest.Points;
+            }
+            quest.Completed = true;
+            questRepository.SaveChanges();
+        }
 
     }
     

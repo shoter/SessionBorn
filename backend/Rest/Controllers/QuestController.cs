@@ -9,6 +9,8 @@ using Entities.Repositories;
 using Services;
 using Rest.Models;
 using Entities.Enums;
+using Common.Results;
+
 namespace Rest.Controllers
 {
     public class QuestController : BaseController
@@ -22,6 +24,7 @@ namespace Rest.Controllers
             this.questService = questService;
         }
         [Route("api/Quest/{id}")]
+        [Authorize]
         public QuestGetModels Get(int id)
         {
             Quest quest = questRepository.GetById(id);
@@ -52,6 +55,7 @@ namespace Rest.Controllers
         }
 
         [Route("api/Quest/add")]
+        [Authorize]
         public void Post(QuestAddModel quest)
         {
             questService.CreateQuest(quest.name, quest.description, quest.type, quest.scenarioId,
@@ -60,6 +64,7 @@ namespace Rest.Controllers
         }
 
         [Route("api/Scenario/{id}/Quests")]
+        [Authorize]
         public IEnumerable<QuestGetModels> GetList(int id)
         {
 
@@ -80,6 +85,31 @@ namespace Rest.Controllers
                 description = quest.Description,
                 points = quest.Points
             };
+        }
+
+        [Route("api/Quest/{questID:int}/complete")]
+        [HttpPost]
+        [Authorize]
+        public void CompleteQuest(int questID)
+        {
+            var user = GetCurrentUser();
+            var quest = questRepository.GetById(questID);
+
+            var result = questService.CanCompleteQuest(quest, user);
+            if (result.IsError)
+                result.ThrowHttpException(HttpStatusCode.Conflict);
+
+            questService.CompleteQuest(quest, user);
+        }
+
+        [Route("api/Quest/{questID:int}/canComplete")]
+        [HttpPost]
+        [Authorize]
+        public MethodResult CanCompleteQuest(int questID)
+        {
+            var user = GetCurrentUser();
+            var quest = questRepository.GetById(questID);
+            return questService.CanCompleteQuest(quest, user);
         }
     }
 }

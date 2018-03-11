@@ -14,7 +14,7 @@ namespace ConsoleTests
         static void Main(string[] args)
         {
             EnumatorInitializer.Init();
-
+            AchievementAddonsInitializer.Init();
 
             var context = new SessionBornEntities();
 

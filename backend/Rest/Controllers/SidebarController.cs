@@ -28,7 +28,8 @@ namespace Rest.Controllers
                 Name = user.UserName,
                 Exp = level.Experience,
                 Lvl = level.CurrentLevel,
-                NextLevelExperience = level.ExperienceForNextLevel
+                NextLevelExperience = level.ExperienceForNextLevel,
+                Points = user.UserInfo.Points
             };
         }
     }
