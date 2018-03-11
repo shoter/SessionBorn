@@ -35,9 +35,9 @@
           <textarea class="form-control" rows="3" id="newQuestDesc" v-model="newQuest.description"></textarea>
           <label for="newQuestType" >Type</label>
           <b-form-select id="newQuestType" name="newQuestType" v-model="newQuest.type" :options="questType" class="form-control"/>
-          {{ newQuest.type }}
           <label for="newQuestDate" >Due date</label>
           <input type="datetime-local" id="newQuestDate" class="form-control" placeholder="Due date"  v-model="timestamp" required autofocus>
+          {{newQuest.dueDate}}
           <label for="newQuestPoints" >Points</label>
           <input type="number" id="newQuestPoints" min="0" class="form-control" placeholder="ECTS points"  v-model="newQuest.points" required autofocus>
           <div class="row">
@@ -60,7 +60,7 @@
         v-bind:title="questNow.name"
         @hidden="clearModal()"
         class="quiz-dialog">
-        <p class="my-4">Do you wanna finish this ques?</p>
+        <p class="my-4">Do you wanna finish this quest?</p>
         <b-btn class="mt-3" variant="success" block @click="solveQuest(questNow.id)" v-bind:disabled="!questNow.canSolve">Acquire reward</b-btn>
       </b-modal>
     </div>
@@ -114,7 +114,7 @@
     },
     watch: {
       timestamp: function (val) {
-        this.newQuest.dueDate = val.toString()
+        this.newQuest.dueDate = val.toLocaleString()
       }
     },
     methods: {
@@ -129,7 +129,7 @@
         return '/#/map/' + lan + '/' + lon + '/' + name.replace(' ', '%20')
       },
       sendQuest: function () {
-        this.newQuest.dueDate = this.newQuest.dueDate.toString()
+        this.newQuest.dueDate = this.newQuest.dueDate.toLocaleString()
         console.log(this.newQuest)
         this.$http.post('http://arrowtotherest.azurewebsites.net/api/Quest/add', this.newQuest, {
           headers: {
@@ -140,8 +140,8 @@
           this.clearQuestModal()
           this.getQuests()
         }, response => {
-          this.$snotify.error('Please check data: ' + response.error, 'Error')
-          this.error = response.error
+          this.$snotify.error('Please check data: ' + response.status, 'Error')
+          this.error = response.status
         })
       },
       clearQuestModal: function () {
@@ -165,7 +165,7 @@
             // get body data
           this.quests = response.body
         }, response => {
-          this.error = response.error
+          this.error = response.status
         })
       },
       getSolveQuestModal: function (id) {
@@ -182,7 +182,7 @@
             this.questNow.canSolve = response.body.isSuccess
           }
         }, response => {
-          this.error = response.error
+          this.error = response.status
         })
         this.$refs.solveQuestModal.show()
       },
@@ -199,7 +199,7 @@
           this.$refs.solveQuestModal.hide()
           this.getQuests()
         }, response => {
-          this.error = response.error
+          this.error = response.status
         })
       },
       clearModal: function () {

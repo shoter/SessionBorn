@@ -67,8 +67,8 @@ export default {
         this.$refs.addScenarioModal.hide()
         this.getScenario()
       }, response => {
-        this.$snotify.error('Please check data: ' + response.error, 'Error')
-        this.error = response.error
+        this.$snotify.error('Please check data: ' + response.status, 'Error')
+        this.error = response.status
       })
     },
     cancelScenarioAdd: function () {

@@ -70,7 +70,7 @@
         this.quiz = response.body
         this.quiz.questions.forEach(function (question) { shuffleArray(question.variants) })
       }, response => {
-        this.error = response.error
+        this.error = response.status
       })
     },
     methods: {
@@ -89,8 +89,8 @@
           EventBus.$emit('quiz-send')
           this.$snotify.success('You solved quiz', 'Solved')
         }, response => {
-          this.$snotify.error('Please check data: ' + response.error, 'Error')
-          this.error = response.error
+          this.$snotify.error('Please check data: ' + response.status, 'Error')
+          this.error = response.status
         })
         this.restartQuiz()
       },
