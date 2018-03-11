@@ -11,7 +11,7 @@ namespace Services
     {
         Quest CreateQuest(string name, string desc, bool completed,
                                 int questType, int scenarioID, System.DateTime dueDate,
-                                System.DateTime doneDate, int points, Nullable<decimal> latitude = null,
+                                int points, Nullable<decimal> latitude = null,
                                 Nullable<decimal> longitude = null);
     }
 }
