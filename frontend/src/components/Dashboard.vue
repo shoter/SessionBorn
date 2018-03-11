@@ -1,7 +1,9 @@
 <template>
   <div id="Dashboard">
-    <h2 class="header">Scenarios</h2>
-    <b-btn variant="success" size="sm" @click="displayScenarioModal"> Add scenario </b-btn>
+
+    <div class="row">
+    <h2 class="header">Scenarios <b-button class="mx-3 py-1" variant="success" size="sm" @click="displayScenarioModal"> Add scenario </b-button></h2>
+    </div>
     <b-card-group columns>
       <b-card  v-for="scenario in scenarios" :key="scenario.id" class="tile"
               v-bind:title="scenario.scenarioName"
@@ -59,11 +61,11 @@ export default {
           Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
         }
       }).then(response => {
-        this.$refs.rewardModal.hide()
         this.$snotify.success('Scenario added', 'Success')
         this.newScenario.scenarioDesc = ''
         this.newScenario.scenarioName = ''
         this.$refs.addScenarioModal.hide()
+        this.getScenario()
       }, response => {
         this.$snotify.error('Please check data: ' + response.error, 'Error')
         this.error = response.error
@@ -76,23 +78,26 @@ export default {
     },
     displayScenarioModal: function () {
       this.$refs.addScenarioModal.show()
+    },
+    getScenario: function () {
+      /* this.$http.interceptors.get(function (request) {
+        request.headers.set('X-CSRF-TOKEN', this.$cookie.get('skyrim_token'))
+        request.headers.set('Authorization', 'Bearer TOKEN')
+      }) */
+      this.$http.get('http://arrowtotherest.azurewebsites.net/api/Scenario', {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+        }
+      }).then(response => {
+        // get body data
+        this.scenarios = response.body
+      }, response => {
+        this.error = response.error
+      })
     }
   },
   mounted: function () {
-    /* this.$http.interceptors.get(function (request) {
-      request.headers.set('X-CSRF-TOKEN', this.$cookie.get('skyrim_token'))
-      request.headers.set('Authorization', 'Bearer TOKEN')
-    }) */
-    this.$http.get('http://arrowtotherest.azurewebsites.net/api/Scenario', {
-      headers: {
-        Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
-      }
-    }).then(response => {
-      // get body data
-      this.scenarios = response.body
-    }, response => {
-      this.error = response.error
-    })
+    this.getScenario()
   }
 }
 </script>
