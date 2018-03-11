@@ -13,20 +13,19 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            EnumatorInitializer.Init();
-            AchievementAddonsInitializer.Init();
+           /* ISce
+            for (int i = 0; i < 10; ++i)
+            {
+                string scenario = $"Super uber scenario {i}";
+                for (int j = 0; j < 50 ; ++j)
+                {
+                    string quest = $"Rescure world {j}";
 
-            var context = new SessionBornEntities();
-
-          //  var repo = new TestRepository(context);
-               
-          //  var dupa = repo.GetAll();
-
-            //foreach (var d in dupa)
-              //  Console.WriteLine($"{d.ID} - {d.Name}");
+                }
+            }
 
            
-            Console.ReadKey();
+            Console.ReadKey();*/
         }
     }
 }

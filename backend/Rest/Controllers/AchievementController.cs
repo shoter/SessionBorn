@@ -23,7 +23,8 @@ namespace Rest.Controllers
             return achievements.Select(a => new AchievementViewModel()
             {
                 AchievementTypeID = a.AchievementTypeID,
-                AchievementName = ((AchievementTypeEnum)a.AchievementTypeID).ToString()
+                AchievementName = ((AchievementTypeEnum)a.AchievementTypeID).ToString(),
+                Description = a.AchievementType.Description
             });
         }
     }

@@ -441,6 +441,7 @@
     <Compile Include="Controllers\RewardController.cs" />
     <Compile Include="Controllers\ScenarioController.cs" />
     <Compile Include="Controllers\SidebarController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -462,6 +463,7 @@
     <Compile Include="Models\Rewards\RewardViewModel.cs" />
     <Compile Include="Models\ScenarioModels.cs" />
     <Compile Include="Models\Sidebars\SidebarViewModel.cs" />
+    <Compile Include="Models\Statistics\CompletedQuestsByMonthViewModel.cs" />
     <Compile Include="Models\Users\CreateUserViewModel.cs" />
     <Compile Include="Models\Users\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
