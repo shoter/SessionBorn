@@ -7,6 +7,7 @@ namespace Rest.Models.Rewards
 {
     public class RewardViewModel : BasicRewardViewModel
     {
+        
         public string Description { get; set; }
     }
 }

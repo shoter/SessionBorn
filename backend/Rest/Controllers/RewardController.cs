@@ -19,7 +19,7 @@ namespace Rest.Controllers
         private readonly IRewardService rewardService;
 
         public RewardController(ITransactionScopeProvider transactionScopeProvider, IRewardRepository rewardRepository,
-            IRewardService rewardService)
+            IRewardService rewardService )
         {
             this.transactionScopeProvider = transactionScopeProvider;
             this.rewardRepository = rewardRepository;
@@ -44,7 +44,8 @@ namespace Rest.Controllers
             {
                 Cost = reward.Cost,
                 Description = reward.Description,
-                Name = reward.Name
+                Name = reward.Name,
+                RewardID = reward.ID
             };
         }
 
@@ -56,7 +57,8 @@ namespace Rest.Controllers
                 .Select(r => new BasicRewardViewModel()
                 {
                     Cost = r.Cost,
-                    Name = r.Name
+                    Name = r.Name,
+                    RewardID = r.ID
                 }).ToList();
         }
 
@@ -81,8 +83,8 @@ namespace Rest.Controllers
             }
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpGet]
         [Route("Api/Reward/CanBuy")]
         public MethodResult CanBuy(int rewardID)
         {

@@ -8,9 +8,9 @@ namespace Entities.Enums
 {
     public enum QuestTypeEnum
     {
-        Test,
-        Exam,
-        Meeting,
-        Quiz
+        Test = 1,
+        Exam = 2,
+        Meeting = 3,
+        Quiz = 4
     }
 }

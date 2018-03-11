@@ -26,14 +26,14 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="125" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Completed" Type="bit" Nullable="false" />
           <Property Name="QuestTypeID" Type="int" Nullable="false" />
           <Property Name="ScenarioID" Type="int" Nullable="false" />
           <Property Name="DueDate" Type="datetime" Nullable="false" />
-          <Property Name="DoneDate" Type="datetime" Nullable="false" />
+          <Property Name="DoneDate" Type="datetime" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Points" Type="int" Nullable="false" />
@@ -50,8 +50,7 @@
             <PropertyRef Name="QuestID" />
           </Key>
           <Property Name="QuestID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CollectedPoints" Type="int" />
         </EntityType>
         <EntityType Name="QuizQuestions">
           <Key>
@@ -79,7 +78,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -227,62 +226,43 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SessionBornModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SessionBornEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Quests" EntityType="SessionBornModel.Quest" />
           <EntitySet Name="QuestTypes" EntityType="SessionBornModel.QuestType" />
-          <AssociationSet Name="FK_Quests_QuestTypes" Association="SessionBornModel.FK_Quests_QuestTypes">
-            <End Role="QuestType" EntitySet="QuestTypes" />
-            <End Role="Quest" EntitySet="Quests" />
-          </AssociationSet>
           <EntitySet Name="AspNetUsers" EntityType="SessionBornModel.AspNetUser" />
-          <EntitySet Name="Scenarios" EntityType="SessionBornModel.Scenario" />
           <EntitySet Name="UserInfos" EntityType="SessionBornModel.UserInfo" />
-          <AssociationSet Name="FK_Scenarios_AspNetUsers" Association="SessionBornModel.FK_Scenarios_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Scenario" EntitySet="Scenarios" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserInfos_AspNetUsers" Association="SessionBornModel.FK_UserInfos_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="UserInfo" EntitySet="UserInfos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Quests_Scenarios" Association="SessionBornModel.FK_Quests_Scenarios">
-            <End Role="Scenario" EntitySet="Scenarios" />
-            <End Role="Quest" EntitySet="Quests" />
           </AssociationSet>
           <EntitySet Name="Rewards" EntityType="SessionBornModel.Reward" />
           <AssociationSet Name="FK_Rewards_AspNetUsers" Association="SessionBornModel.FK_Rewards_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Reward" EntitySet="Rewards" />
           </AssociationSet>
-          <EntitySet Name="Quizes" EntityType="SessionBornModel.Quize" />
-          <AssociationSet Name="FK_Quizes_Quests" Association="SessionBornModel.FK_Quizes_Quests">
-            <End Role="Quest" EntitySet="Quests" />
-            <End Role="Quize" EntitySet="Quizes" />
-          </AssociationSet>
           <EntitySet Name="QuizQuestions" EntityType="SessionBornModel.QuizQuestion" />
+          <EntitySet Name="Quizes" EntityType="SessionBornModel.Quize" />
           <AssociationSet Name="FK_QuizQuestions_Quizes" Association="SessionBornModel.FK_QuizQuestions_Quizes">
             <End Role="Quize" EntitySet="Quizes" />
             <End Role="QuizQuestion" EntitySet="QuizQuestions" />
           </AssociationSet>
+          <EntitySet Name="Quests" EntityType="SessionBornModel.Quest" />
+          <EntitySet Name="Scenarios" EntityType="SessionBornModel.Scenario" />
+          <AssociationSet Name="FK_Scenarios_AspNetUsers" Association="SessionBornModel.FK_Scenarios_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Scenario" EntitySet="Scenarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quests_QuestTypes" Association="SessionBornModel.FK_Quests_QuestTypes">
+            <End Role="QuestType" EntitySet="QuestTypes" />
+            <End Role="Quest" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quests_Scenarios" Association="SessionBornModel.FK_Quests_Scenarios">
+            <End Role="Scenario" EntitySet="Scenarios" />
+            <End Role="Quest" EntitySet="Quests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quizes_Quests" Association="SessionBornModel.FK_Quizes_Quests">
+            <End Role="Quest" EntitySet="Quests" />
+            <End Role="Quize" EntitySet="Quizes" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Quest">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Completed" Type="Boolean" Nullable="false" />
-          <Property Name="QuestTypeID" Type="Int32" Nullable="false" />
-          <Property Name="ScenarioID" Type="Int32" Nullable="false" />
-          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DoneDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
-          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
-          <Property Name="Points" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="QuestType" Relationship="SessionBornModel.FK_Quests_QuestTypes" FromRole="Quest" ToRole="QuestType" />
-          <NavigationProperty Name="Scenario" Relationship="SessionBornModel.FK_Quests_Scenarios" FromRole="Quest" ToRole="Scenario" />
-          <NavigationProperty Name="Quize" Relationship="SessionBornModel.FK_Quizes_Quests" FromRole="Quest" ToRole="Quize" />
-        </EntityType>
         <EntityType Name="QuestType">
           <Key>
             <PropertyRef Name="ID" />
@@ -291,18 +271,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Quests" Relationship="SessionBornModel.FK_Quests_QuestTypes" FromRole="QuestType" ToRole="Quest" />
         </EntityType>
-        <Association Name="FK_Quests_QuestTypes">
-          <End Type="SessionBornModel.QuestType" Role="QuestType" Multiplicity="1" />
-          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Quest">
-              <PropertyRef Name="QuestTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -319,20 +287,9 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Scenarios" Relationship="SessionBornModel.FK_Scenarios_AspNetUsers" FromRole="AspNetUser" ToRole="Scenario" />
           <NavigationProperty Name="UserInfo" Relationship="SessionBornModel.FK_UserInfos_AspNetUsers" FromRole="AspNetUser" ToRole="UserInfo" />
           <NavigationProperty Name="Rewards" Relationship="SessionBornModel.FK_Rewards_AspNetUsers" FromRole="AspNetUser" ToRole="Reward" />
-        </EntityType>
-        <EntityType Name="Scenario">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="SessionBornModel.FK_Scenarios_AspNetUsers" FromRole="Scenario" ToRole="AspNetUser" />
-          <NavigationProperty Name="Quests" Relationship="SessionBornModel.FK_Quests_Scenarios" FromRole="Scenario" ToRole="Quest" />
+          <NavigationProperty Name="Scenarios" Relationship="SessionBornModel.FK_Scenarios_AspNetUsers" FromRole="AspNetUser" ToRole="Scenario" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -343,18 +300,6 @@
           <NavigationProperty Name="AspNetUser" Relationship="SessionBornModel.FK_UserInfos_AspNetUsers" FromRole="UserInfo" ToRole="AspNetUser" />
           <Property Name="Points" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Scenarios_AspNetUsers">
-          <End Type="SessionBornModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="SessionBornModel.Scenario" Role="Scenario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Scenario">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserInfos_AspNetUsers">
           <End Type="SessionBornModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
           <End Type="SessionBornModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
@@ -364,18 +309,6 @@
             </Principal>
             <Dependent Role="UserInfo">
               <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Quests_Scenarios">
-          <End Type="SessionBornModel.Scenario" Role="Scenario" Multiplicity="1" />
-          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Scenario">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Quest">
-              <PropertyRef Name="ScenarioID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -402,28 +335,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Quize">
-          <Key>
-            <PropertyRef Name="QuestID" />
-          </Key>
-          <Property Name="QuestID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Quest" Relationship="SessionBornModel.FK_Quizes_Quests" FromRole="Quize" ToRole="Quest" />
-          <NavigationProperty Name="QuizQuestions" Relationship="SessionBornModel.FK_QuizQuestions_Quizes" FromRole="Quize" ToRole="QuizQuestion" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_Quizes_Quests">
-          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="1" />
-          <End Type="SessionBornModel.Quize" Role="Quize" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Quest">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Quize">
-              <PropertyRef Name="QuestID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="QuizQuestion">
           <Key>
             <PropertyRef Name="ID" />
@@ -437,6 +348,15 @@
           <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Quize" Relationship="SessionBornModel.FK_QuizQuestions_Quizes" FromRole="QuizQuestion" ToRole="Quize" />
         </EntityType>
+        <EntityType Name="Quize">
+          <Key>
+            <PropertyRef Name="QuestID" />
+          </Key>
+          <Property Name="QuestID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuizQuestions" Relationship="SessionBornModel.FK_QuizQuestions_Quizes" FromRole="Quize" ToRole="QuizQuestion" />
+          <Property Name="CollectedPoints" Type="Int32" />
+          <NavigationProperty Name="Quest" Relationship="SessionBornModel.FK_Quizes_Quests" FromRole="Quize" ToRole="Quest" />
+        </EntityType>
         <Association Name="FK_QuizQuestions_Quizes">
           <End Type="SessionBornModel.Quize" Role="Quize" Multiplicity="1" />
           <End Type="SessionBornModel.QuizQuestion" Role="QuizQuestion" Multiplicity="*" />
@@ -449,29 +369,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Quest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="QuestTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ScenarioID" Type="Int32" Nullable="false" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DoneDate" Type="DateTime" Precision="3" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestType" Relationship="SessionBornModel.FK_Quests_QuestTypes" FromRole="Quest" ToRole="QuestType" />
+          <NavigationProperty Name="Scenario" Relationship="SessionBornModel.FK_Quests_Scenarios" FromRole="Quest" ToRole="Scenario" />
+          <NavigationProperty Name="Quize" Relationship="SessionBornModel.FK_Quizes_Quests" FromRole="Quest" ToRole="Quize" />
+        </EntityType>
+        <EntityType Name="Scenario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SessionBornModel.FK_Scenarios_AspNetUsers" FromRole="Scenario" ToRole="AspNetUser" />
+          <NavigationProperty Name="Quests" Relationship="SessionBornModel.FK_Quests_Scenarios" FromRole="Scenario" ToRole="Quest" />
+        </EntityType>
+        <Association Name="FK_Scenarios_AspNetUsers">
+          <End Type="SessionBornModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SessionBornModel.Scenario" Role="Scenario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Scenario">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quests_QuestTypes">
+          <End Type="SessionBornModel.QuestType" Role="QuestType" Multiplicity="1" />
+          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quest">
+              <PropertyRef Name="QuestTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quests_Scenarios">
+          <End Type="SessionBornModel.Scenario" Role="Scenario" Multiplicity="1" />
+          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scenario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quest">
+              <PropertyRef Name="ScenarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quizes_Quests">
+          <End Type="SessionBornModel.Quest" Role="Quest" Multiplicity="1" />
+          <End Type="SessionBornModel.Quize" Role="Quize" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Quest">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quize">
+              <PropertyRef Name="QuestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SessionBornModelStoreContainer" CdmEntityContainer="SessionBornEntities">
-          <EntitySetMapping Name="Quests">
-            <EntityTypeMapping TypeName="SessionBornModel.Quest">
-              <MappingFragment StoreEntitySet="Quests">
-                <ScalarProperty Name="Points" ColumnName="Points" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
-                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
-                <ScalarProperty Name="ScenarioID" ColumnName="ScenarioID" />
-                <ScalarProperty Name="QuestTypeID" ColumnName="QuestTypeID" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="QuestTypes">
             <EntityTypeMapping TypeName="SessionBornModel.QuestType">
               <MappingFragment StoreEntitySet="QuestTypes">
@@ -498,16 +479,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Scenarios">
-            <EntityTypeMapping TypeName="SessionBornModel.Scenario">
-              <MappingFragment StoreEntitySet="Scenarios">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserInfos">
             <EntityTypeMapping TypeName="SessionBornModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfos">
@@ -528,15 +499,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Quizes">
-            <EntityTypeMapping TypeName="SessionBornModel.Quize">
-              <MappingFragment StoreEntitySet="Quizes">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="QuestID" ColumnName="QuestID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="QuizQuestions">
             <EntityTypeMapping TypeName="SessionBornModel.QuizQuestion">
               <MappingFragment StoreEntitySet="QuizQuestions">
@@ -546,6 +508,41 @@
                 <ScalarProperty Name="AnswerB" ColumnName="AnswerB" />
                 <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
                 <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizes">
+            <EntityTypeMapping TypeName="SessionBornModel.Quize">
+              <MappingFragment StoreEntitySet="Quizes">
+                <ScalarProperty Name="CollectedPoints" ColumnName="CollectedPoints" />
+                <ScalarProperty Name="QuestID" ColumnName="QuestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quests">
+            <EntityTypeMapping TypeName="SessionBornModel.Quest">
+              <MappingFragment StoreEntitySet="Quests">
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="ScenarioID" ColumnName="ScenarioID" />
+                <ScalarProperty Name="QuestTypeID" ColumnName="QuestTypeID" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scenarios">
+            <EntityTypeMapping TypeName="SessionBornModel.Scenario">
+              <MappingFragment StoreEntitySet="Scenarios">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

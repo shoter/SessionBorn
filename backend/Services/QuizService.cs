@@ -20,11 +20,11 @@ namespace Services
 
         public Quize CreateQuiz(Quest quest, string title, string description, IEnumerable<QuizNewQuestion> questions)
         {
+            quest.Points = questions.Count();
             var quiz = new Quize()
             {
+                
                 Quest = quest,
-                Name = title,
-                Description = description,
                 QuizQuestions = questions.Select(q =>
                 new QuizQuestion()
                 {
@@ -40,6 +40,14 @@ namespace Services
             quizRepository.SaveChanges();
 
             return quiz;
+        }
+
+        public void AnswerQuiz(Quize quiz, int points)
+        {
+            quiz.CollectedPoints = points;
+            quiz.Quest.Completed = true;
+            quiz.Quest.DoneDate = DateTime.Now;
+            quizRepository.SaveChanges();
         }
     }
 }

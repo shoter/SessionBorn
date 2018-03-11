@@ -11,5 +11,6 @@ namespace Services
     public interface IQuizService
     {
         Quize CreateQuiz(Quest quest,string title, string description, IEnumerable<QuizNewQuestion> questions);
+        void AnswerQuiz(Quize quiz, int points);
     }
 }

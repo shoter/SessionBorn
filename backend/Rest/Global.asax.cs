@@ -56,6 +56,7 @@ namespace Rest
             kernel.Bind<IRewardService>().To<RewardService>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             kernel.Bind<ITransactionScopeProvider>().To<StandardTransactionScopeProvider>().InRequestScope();
+            kernel.Bind<IQuizService>().To<QuizService>().InRequestScope();
         }
     }
 }

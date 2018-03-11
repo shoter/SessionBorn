@@ -449,6 +449,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Quizes\CreateQuizViewModel.cs" />
     <Compile Include="Models\QuestModels.cs" />
+    <Compile Include="Models\Quizes\QuizAnswerItemViewModel.cs" />
+    <Compile Include="Models\Quizes\QuizAnswerViewModel.cs" />
+    <Compile Include="Models\Quizes\QuizListItemViewModel.cs" />
+    <Compile Include="Models\Quizes\QuizQuestionViewModel.cs" />
+    <Compile Include="Models\Quizes\QuizViewModel.cs" />
     <Compile Include="Models\Rewards\BasicRewardViewModel.cs" />
     <Compile Include="Models\Rewards\RewardViewModel.cs" />
     <Compile Include="Models\ScenarioModels.cs" />

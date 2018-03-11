@@ -12,7 +12,7 @@ namespace Rest.Models
         public int scenarioId { get; set; }
         public string type { get; set; }
         public DateTime dueDate { get; set; }
-        public DateTime doneDate { get; set; }
+        public DateTime? doneDate { get; set; }
         public Nullable<decimal> Latitude { get; set; }
         public Nullable<decimal> Longitude { get; set; }
         public Boolean completed { get; set; }

@@ -21,7 +21,7 @@ namespace Entities
         public int QuestTypeID { get; set; }
         public int ScenarioID { get; set; }
         public System.DateTime DueDate { get; set; }
-        public System.DateTime DoneDate { get; set; }
+        public Nullable<System.DateTime> DoneDate { get; set; }
         public Nullable<decimal> Latitude { get; set; }
         public Nullable<decimal> Longitude { get; set; }
         public int Points { get; set; }
