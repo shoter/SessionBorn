@@ -26,6 +26,7 @@ namespace Rest.Models.Quizes
             Answer = question.CorrectAnswer;
             Variants = new List<string>()
             {
+                question.CorrectAnswer,
                 question.AnswerB,
                 question.AnswerC,
                 question.AnswerD

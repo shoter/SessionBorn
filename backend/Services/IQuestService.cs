@@ -9,7 +9,7 @@ namespace Services
 {
     public interface IQuestService
     {
-        Quest CreateQuest(string name, string desc, bool completed,
+        Quest CreateQuest(string name, string desc, 
                                 int questType, int scenarioID, System.DateTime dueDate,
                                 int points, Nullable<decimal> latitude = null,
                                 Nullable<decimal> longitude = null);

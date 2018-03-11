@@ -54,7 +54,7 @@ namespace Rest.Controllers
         [Route("api/Quest/add")]
         public void Post(QuestAddModel quest)
         {
-            questService.CreateQuest(quest.name, quest.description, false, quest.type, quest.scenarioId,
+            questService.CreateQuest(quest.name, quest.description, quest.type, quest.scenarioId,
                 quest.dueDate, quest.points, quest.Latitude, quest.Longitude);
             
         }

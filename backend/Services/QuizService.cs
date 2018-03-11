@@ -18,7 +18,7 @@ namespace Services
         }
 
 
-        public Quize CreateQuiz(Quest quest, string title, string description, IEnumerable<QuizNewQuestion> questions)
+        public Quize CreateQuiz(Quest quest, IEnumerable<QuizNewQuestion> questions)
         {
             quest.Points = questions.Count();
             var quiz = new Quize()

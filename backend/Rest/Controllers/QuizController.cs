@@ -1,4 +1,5 @@
 ﻿using Common.Transactions;
+using Entities.Enums;
 using Entities.Repositories;
 using Rest.Models.Quizes;
 using Services;
@@ -28,7 +29,7 @@ namespace Rest.Controllers
             this.quizRepository = quizRepository;
         }
 
-        /* [Route("Api/Quiz/Create")]
+         [Route("Api/Quiz/Create")]
          [HttpPost]
          [Authorize]
          public void Create(CreateQuizViewModel vm)
@@ -36,15 +37,21 @@ namespace Rest.Controllers
              using (var trs = transactionScopeProvider.CreateTransactionScope())
              {
                  var user = GetCurrentUser();
-                 var quest = questService.CreateQuest(
-                     name: vm.Name,
-                     desc: vm.Description,
-                     completed: false,
+                var quest = questService.CreateQuest(
+                    name: vm.Quest.name,
+                    desc: vm.Quest.description,
+                    dueDate: vm.Quest.dueDate,
+                    latitude: vm.Quest.Latitude,
+                    longitude: vm.Quest.Longitude,
+                    points: 0, //will be calcualted
+                    questType: (int)QuestTypeEnum.Quiz,
+                    scenarioID: vm.Quest.scenarioId);
 
-
+                var quiz = quizService.CreateQuiz(quest, vm.Questions);
+                     
                  trs.Complete();
              }
-         }*/
+         }
 
         [Authorize]
         public QuizViewModel Get(int quizID)

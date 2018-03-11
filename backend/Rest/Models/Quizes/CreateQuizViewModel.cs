@@ -1,4 +1,5 @@
-﻿using Services.DTOs;
+﻿using Newtonsoft.Json;
+using Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,11 @@ namespace Rest.Models.Quizes
 {
     public class CreateQuizViewModel
     {
+        [JsonProperty(PropertyName = "quest")]
         public QuestAddModel Quest { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        [JsonProperty(PropertyName = "dueDate")]
+        public DateTime DueDate { get; set; }
+        [JsonProperty(PropertyName = "questions")]
         public List<QuizNewQuestion> Questions { get; set; }
 
     }
