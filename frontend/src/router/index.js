@@ -4,6 +4,7 @@ import Dashboard from '@/components/Dashboard'
 import Map from '@/components/Map'
 import Quests from '@/components/Quests'
 import Rewards from '@/components/Rewards'
+import Achievments from '@/components/Achievments'
 import Quiz from '@/components/Quiz'
 
 // import Toastr
@@ -38,6 +39,11 @@ export default new Router({
       path: '/rewards',
       name: 'Rewards',
       component: Rewards
+    },
+    {
+      path: '/stats',
+      name: 'Stats',
+      component: Achievments
     },
     {
       path: '/quiz/:id',

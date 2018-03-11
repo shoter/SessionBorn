@@ -83,7 +83,11 @@ export default {
       request.headers.set('X-CSRF-TOKEN', this.$cookie.get('skyrim_token'))
       request.headers.set('Authorization', 'Bearer TOKEN')
     }) */
-    this.$http.get('http://localhost:8080/static/scenarios.json').then(response => {
+    this.$http.get('http://arrowtotherest.azurewebsites.net/api/Scenario', {
+      headers: {
+        Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+      }
+    }).then(response => {
       // get body data
       this.scenarios = response.body
     }, response => {

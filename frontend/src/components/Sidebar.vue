@@ -7,6 +7,8 @@
         <div class="col-8 user-exp">{{ user.exp }}/{{ user.nextExp }} EXP</div>
         <div class="col-4 user-lvl"> {{ user.lvl }} LVL</div>
       </div>
+
+      <div class="text-center"><icon name="star-o"></icon> Points: {{ user.points }}</div>
       <div class="progress-bar">
         <div class="progress-bar-fill" :style="{ 'width': user.levelPercentage*100 + '%'  }"></div>
       </div>
@@ -26,36 +28,45 @@
 </template>
 
 <script>
-    export default {
-      name: 'Sidebar',
-      data () {
-        return {
-          user: {
-            name: '',
-            photoLink: '',
-            lvl: 0,
-            exp: 0 },
-          menu: [
+  import { EventBus } from './../bus/event-bus.js'
+
+  export default {
+    name: 'Sidebar',
+    data () {
+      return {
+        user: {
+          name: '',
+          photoLink: '',
+          lvl: 0,
+          exp: 0 },
+        menu: [
             { link: '/', name: 'Dashboard', icon: 'home' },
             { link: '/#/rewards', name: 'Awards', icon: 'star' },
             { link: '/#/map', name: 'Map', icon: 'map' },
-            { link: '#', name: 'Statistics', icon: 'area-chart' }
-          ]
-        }
-      },
-      mounted: function () {
+            { link: '/#/stats', name: 'Statistics', icon: 'area-chart' }
+        ]
+      }
+    },
+    methods: {
+      getSidebar: function () {
         this.$http.get('http://arrowtotherest.azurewebsites.net/api/Sidebar', {
           headers: {
             Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
           }
         })
-          .then(response => {
-            this.user = response.body
-          }, response => {
-            this.error = response.error
-          })
+      .then(response => {
+        this.user = response.body
+      }, response => {
+        this.error = response.error
+      })
       }
+    },
+    mounted: function () {
+      this.getSidebar()
+      EventBus.$on('reward-send', this.getSidebar)
     }
+  }
+
 </script>
 
 <style lang="scss" scoped>

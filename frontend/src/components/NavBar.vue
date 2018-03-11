@@ -10,13 +10,6 @@
       <!-- Right aligned nav items -->
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-text>
-          <icon name="star-o"></icon> Points: {{ scores }}
-        </b-nav-text>
-
-      </b-navbar-nav>
-
-      <b-navbar-nav class="ml-auto">
         <b-nav-text class="line">
           <icon name="clock-o"></icon> Time:
           {{ time_string }}
