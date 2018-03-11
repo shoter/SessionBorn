@@ -99,10 +99,11 @@ namespace Services
                     Points = points
                 };
 
-                TryToDoMotorllaMarker(quest);
+                
 
                 questRepository.Add(quest);
                 questRepository.SaveChanges();
+                TryToDoMotorllaMarker(quest);
                 trs.Complete();
                 return quest;
             }
