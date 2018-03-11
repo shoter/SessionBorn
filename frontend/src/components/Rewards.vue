@@ -30,69 +30,71 @@
 </template>
 
 <script>
-    export default {
-      name: 'Rewards',
-      data () {
-        return {
-          msg: 'Welcome to Your Vue.js App',
-          rewards: null,
-          user_points: 30,
-          error: null,
-          rewardNow: {
-            id: 0,
-            name: '',
-            canBuy: false
-          }
+  import { EventBus } from './../bus/event-bus.js'
+
+  export default {
+    name: 'Rewards',
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App',
+        rewards: null,
+        error: null,
+        rewardNow: {
+          id: 0,
+          name: '',
+          canBuy: false
         }
-      },
-      methods: {
-        getRewardModal: function (id) {
-          this.$http.get('http://arrowtotherest.azurewebsites.net/api/Reward/CanBuy?rewardID=' + id, {
-            headers: {
-              Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
-            }
-          }).then(response => {
-            if (response.body.isSuccess) {
-              this.rewardNow.id = id
-              this.rewardNow.name = this.rewards.find((elem) => elem.RewardID === id).Name
-              this.rewardNow.canBuy = response.body.isSuccess
-            }
-          }, response => {
-            this.error = response.error
-          })
-          this.$refs.rewardModal.show()
-        },
-        sendReward: function (id) {
-          this.$http.post('http://arrowtotherest.azurewebsites.net/api/Reward/BuyReward?rewardID=' + id, {}, {
-            headers: {
-              Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
-            }
-          }).then(response => {
-            this.$refs.rewardModal.hide()
-            //TODO: toastr - success, login - toastr success, errors also
-          }, response => {
-            this.error = response.error
-          })
-        },
-        clearModal: function () {
-          this.rewardNow.id = 0
-          this.rewardNow.name = ''
-          this.rewardNow.canBuy = false
-        }
-      },
-      mounted: function () {
-        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Reward', {
+      }
+    },
+    methods: {
+      getRewardModal: function (id) {
+        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Reward/CanBuy?rewardID=' + id, {
           headers: {
             Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
           }
         }).then(response => {
-          // get body data
-          this.rewards = response.body
+          if (response.body.isSuccess) {
+            this.rewardNow.id = id
+            this.rewardNow.name = this.rewards.find((elem) => elem.RewardID === id).Name
+            this.rewardNow.canBuy = response.body.isSuccess
+          }
         }, response => {
           this.error = response.error
         })
+        this.$refs.rewardModal.show()
+      },
+      sendReward: function (id) {
+        this.$http.post('http://arrowtotherest.azurewebsites.net/api/Reward/BuyReward?rewardID=' + id, {}, {
+          headers: {
+            Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+          }
+        }).then(response => {
+          EventBus.$emit('reward-send')
+          console.log('EMITED BUS')
+          this.$refs.rewardModal.hide()
+        }, response => {
+          this.error = response.error
+        })
+      },
+      clearModal: function () {
+        this.rewardNow.id = 0
+        this.rewardNow.name = ''
+        this.rewardNow.canBuy = false
       }
+    },
+    mounted: function () {
+      this.$http.get('http://arrowtotherest.azurewebsites.net/api/Reward', {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+        }
+      }).then(response => {
+          // get body data
+        this.rewards = response.body
+      }, response => {
+        this.error = response.error
+      })
     }
+  }
 </script>
 
 <style lang="scss" scoped>

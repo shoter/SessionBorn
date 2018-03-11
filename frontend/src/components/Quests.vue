@@ -52,7 +52,11 @@
         }
       },
       mounted: function () {
-        this.$http.get('http://localhost:8080/static/quest.json').then(response => {
+        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Scenario/' + this.$route.params.id + '/Quests', {
+          headers: {
+            Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
+          }
+        }).then(response => {
           // get body data
           this.quests = response.body
         }, response => {
