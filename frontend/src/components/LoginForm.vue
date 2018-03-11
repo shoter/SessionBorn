@@ -15,6 +15,8 @@
 </template>
 
 <script>
+  import { EventBus } from './../bus/event-bus.js'
+
   export default {
     data () {
       return {
@@ -40,6 +42,7 @@
               response.body.access_token,
               response.body.expires_in
             )
+            EventBus.$emit('login')
           }, response => {
             this.$snotify.error('Incorrect username or password', 'Error')
           })
