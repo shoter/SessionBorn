@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="submitContainer">
-      <button class="btn btn-default" type="submit" ><icon name="check"></icon>Check</button>
+      <button class="btn btn-warning" type="submit" ><icon name="check"></icon>Check</button>
       </div>
     </form>
 
@@ -40,70 +40,88 @@
 </template>
 
 <script>
-    import NavForm from 'bootstrap-vue/es/components/nav/nav-form'
-    function shuffleArray (array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]
-      }
+  import { EventBus } from './../bus/event-bus.js'
+  import NavForm from 'bootstrap-vue/es/components/nav/nav-form'
+  function shuffleArray (array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]
     }
-    export default {
-      components: {NavForm},
-      name: 'quiz',
-      data () {
-        return {
-          quiz: {},
-          points: 0,
-          all: 0,
-          empty: 0
+  }
+  export default {
+    components: {NavForm},
+    name: 'quiz',
+    data () {
+      return {
+        quiz: {},
+        points: 0,
+        all: 0,
+        empty: 0
+      }
+    },
+    mounted: function () {
+      this.$http.get('http://arrowtotherest.azurewebsites.net/api/Quiz?quizID=' + this.$route.params.id, {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
         }
-      },
-      mounted: function () {
-        this.$http.get('http://arrowtotherest.azurewebsites.net/api/Quiz?quizID=' + this.$route.params.id, {
+      }).then(response => {
+          // get body data
+        console.log(response.body)
+        this.quiz = response.body
+        this.quiz.questions.forEach(function (question) { shuffleArray(question.variants) })
+      }, response => {
+        this.error = response.error
+      })
+    },
+    methods: {
+      markAsFinished: function () {
+        console.log('sent')
+        let answer = {
+          quizID: parseInt(this.$route.params.id),
+          score: (this.points / this.all).toFixed(2) * 100
+        }
+        console.log(answer)
+        this.$http.post('http://arrowtotherest.azurewebsites.net/Api/Quiz/Answer', answer, {
           headers: {
             Authorization: 'Bearer ' + this.$cookie.get('skyrim_token')
           }
         }).then(response => {
-          // get body data
-          console.log(response.body)
-          this.quiz = response.body
-          this.quiz.questions.forEach(function (question) { shuffleArray(question.variants) })
+          EventBus.$emit('quiz-send')
+          this.$snotify.success('You solved quiz', 'Solved')
         }, response => {
+          this.$snotify.error('Please check data: ' + response.error, 'Error')
           this.error = response.error
         })
+        this.restartQuiz()
       },
-      methods: {
-        markAsFinished: function () {
-          console.log('sent')
-        },
-        restartQuiz: function () {
-          this.$refs.resultModal.hide()
-          this.quiz.questions.forEach(function (question) { question.userAnswer = undefined })
-        },
-        checkQuiz: function () {
-          console.log(this.quiz)
-          let points = 0
-          let empty = 0
-          let all = 0
+      restartQuiz: function () {
+        this.$refs.resultModal.hide()
+        this.quiz.questions.forEach(function (question) { question.userAnswer = undefined })
+      },
+      checkQuiz: function () {
+        console.log(this.quiz)
+        let points = 0
+        let empty = 0
+        let all = 0
 
-          this.quiz.questions.forEach(function (question) {
-            all += 1
-            console.log(question)
-            if (question.userAnswer === undefined) {
-              empty += 1
-            } else if (question.userAnswer === question.answer) {
-              points += 1
-            }
-          })
+        this.quiz.questions.forEach(function (question) {
+          all += 1
+          console.log(question)
+          if (question.userAnswer === undefined) {
+            empty += 1
+          } else if (question.userAnswer === question.answer) {
+            points += 1
+          }
+        })
 
-          this.points = points
-          this.all = all
-          this.empty = empty
+        this.points = points
+        this.all = all
+        this.empty = empty
 
-          this.$refs.resultModal.show()
-        }
+        this.$refs.resultModal.show()
       }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

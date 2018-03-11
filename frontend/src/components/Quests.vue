@@ -15,7 +15,7 @@
             <small v-else class="due-date">{{ updateTime(quest.dueDate) }} days left</small>
           </div>
           <b-button-group>
-            <b-button v-if="quest.isQuiz" variant="info" size="sm" v-bind:disabled="quest.completed">Solve quiz</b-button>
+            <b-button v-if="quest.isQuiz" variant="info" size="sm" v-bind:disabled="quest.completed" :to="'/quiz/' + quest.id">Solve quiz</b-button>
           <b-button v-else variant="success" size="sm" v-bind:disabled="quest.completed" @click="getSolveQuestModal(quest.id)">Complete</b-button>
             <b-button variant="secondary" size="sm"
                       v-bind:href = "mapLink(quest.Latitude,quest.Longitude,quest.name)" class="card-link"
@@ -210,6 +210,7 @@
     },
     mounted: function () {
       this.getQuests()
+      EventBus.$on('quiz-send', this.getQuests)
     }
   }
 </script>
