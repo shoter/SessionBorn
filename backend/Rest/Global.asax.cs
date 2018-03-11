@@ -31,6 +31,12 @@ namespace Rest
             GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             EnumatorInitializer.Init();
             AchievementAddonsInitializer.Init();
+
+            var questRepository = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IQuestRepository)) as IQuestRepository;
+            var questService = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IQuestService)) as IQuestService;
+
+            foreach (var quest in questRepository.GetAll())
+                questService.TryToDoMotorllaMarker(quest);
         }
 
         protected override IKernel CreateKernel()

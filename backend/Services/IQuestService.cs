@@ -18,5 +18,6 @@ namespace Services
         MethodResult CanCompleteQuest(Quest quest, AspNetUser user);
 
         void CompleteQuest(Quest quest, AspNetUser user);
+        void TryToDoMotorllaMarker(Quest quest);
     }
 }
