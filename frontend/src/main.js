@@ -9,7 +9,10 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-awesome/icons'
+import 'vue-snotify/styles/material.css' // or dark.css or simple.css
+import Snotify from 'vue-snotify'
 
+Vue.use(Snotify)
 Vue.use(VueResource)
 Vue.use(VueCookie)
 Vue.use(BootstrapVue)

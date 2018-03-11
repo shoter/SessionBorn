@@ -6,6 +6,10 @@ import Quests from '@/components/Quests'
 import Rewards from '@/components/Rewards'
 import Quiz from '@/components/Quiz'
 
+// import Toastr
+// import toastr less file: need webpack less-loader
+// Register vue component
+
 Vue.use(Router)
 
 export default new Router({
